@@ -1,0 +1,3 @@
+<?xml version="1.0"?>
+<attr sel="#form" th:action="@{/sys/role/add}">
+</attr>

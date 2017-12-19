@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<script th:src="@{/plugins/designer/js/Map.js}" type="text/javascript"
+	charset="utf-8"></script>
+<script th:src="@{/plugins/designer/js/jquery-1.11.0.js}"
+	type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/plugins/designer/js/jquery.contextmenu.r2.js}"
+	type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/plugins/designer/js/jsplumb.min.js}"
+	type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/plugins/designer/js/misalen.process.js}"
+	type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/plugins/designer/js/jquery-ui.min.js}"
+	type="text/javascript" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css"
+	th:href="@{/plugins/designer/css/misalen.process.css}" />
+<link rel="stylesheet" type="text/css"
+	th:href="@{/plugins/designer/css/misalen.toolbar.css}" />
+<script type="text/javascript" th:src="@{/plugins/layer-v3.1.0/layer.js}"></script>
+<title></title>
+</head>
+
+<body>
+	<div class="mini-layout" id="canvas">
+		<ul class="mi_toolbar">
+			<li><span class='list-item' type='start'> 开始 </span></li>
+			<li><span class='list-item' type='process'> 步骤 </span></li>
+			<li><span class='list-item' type='differences'> 节点 </span></li>
+			<li><span class='list-item' type='stop'> 结束 </span></li>
+		</ul>
+	</div>
+	<div id="processMenu" style="display: none;">
+		<ul>
+			<li id="pmAttribute"><i class="icon-cog"></i>&nbsp;<span
+				class="_label">属性</span></li>
+			<li id="pmDelete"><i class="icon-trash"></i>&nbsp;<span
+				class="_label">删除</span></li>
+		</ul>
+	</div>
+	<div id="canvasMenu" style="display: none;">
+		<ul>
+			<li id="cmAdd"><i class="icon-plus"></i>&nbsp;<span
+				class="_label">添加步骤</span></li>
+			<li id="cmSave"><i class="icon-save"></i>&nbsp;<span
+				class="_label">保存</span></li>
+			<li id="cmRefresh"><i class="icon-refresh"></i>&nbsp;<span
+				class="_label">刷新 F5</span></li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" th:inline="javascript">
+	var baseUrl= [[@{/sys/flow/designer/}]];
+	var newflowId= [[${primaryKey}]];
+	var canvasMenus={
+			"cmAdd" : function(t) {
+				var mLeft = $("#jqContextMenu").css("left");
+				var mTop = $("#jqContextMenu").css("top");
+				var param={flowId:newflowId};
+				param.nodeType='process';
+				param.nodeName='步骤';
+				param.style='left:'+mLeft+';top:'+mTop+';';
+				$.ajax({
+				    url:baseUrl+'add',
+				    type:'POST', 
+				    data:JSON.stringify(param),
+				    contentType: "application/json; charset=utf-8",
+				    dataType:'json',
+				    success:function(data){
+				    	_canvas.newNode(data.data);
+				    }
+				});
+			},
+			"cmRefresh" : function(t) {
+				location.reload();
+			},
+			"cmSave" : function(t) {
+				var data=_canvas.data();
+				console.log(data);
+				$.ajax({
+				    url:baseUrl+'save/'+newflowId,
+				    type:'POST', 
+				    data:JSON.stringify(data),
+				    contentType: "application/json; charset=utf-8",
+				    dataType:'json',
+				    success:function(data){
+				    	_canvas.newNode(data.data);
+				    }
+				});
+			}
+		};
+	var processMenus={ /*步骤右键*/
+			"pmDelete" : function(t) {
+
+			},
+			"pmAttribute" : function(t) {
+
+			}
+		};
+		var _canvas;
+		$.post(baseUrl+'get/'+newflowId,{},function(result){
+			var processDatas = {};
+			processDatas.list=result.data;
+			 _canvas = $("#canvas").MisalenProcess(
+						{
+							processData : processDatas,
+							canvasMenus : canvasMenus,
+							processMenus : processMenus,
+							fnDbClick : function(row) {
+								alert("对步骤操作" + row);
+							},
+							canvasDbClick : function() {
+								
+							}
+						});
+		});
+	
+	$(".list-item").draggable({
+		helper : "clone",
+		stop : function(event, ui) {
+			var type= ui.helper.attr('type');
+			var param={flowId:newflowId};
+			param.nodeType=type;
+			if(type=='process'){
+				param.nodeName='步骤';
+			}else{
+				param.nodeName=type;
+			}
+			param.style='left:'+ui.position.left+'px;top:'+ui.position.top+'px;';
+			$.ajax({
+			    url:baseUrl+'add',
+			    type:'POST', 
+			    data:JSON.stringify(param),
+			    contentType: "application/json; charset=utf-8",
+			    dataType:'json',
+			    success:function(data){
+			    	_canvas.newNode(data.data);
+			    }
+			});
+		}
+	});
+	
+	
+</script>
+
+</html>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<thlogic>
+	<attr sel="#form" th:action="@{/sys/resources/add}">
+	</attr>
+	<attr sel="#parent" th:if="${parent!=null}">
+		<attr sel="#parentId" th:value="${parent.primaryKey}">
+		</attr>
+		<attr sel="#parentText" th:value="${parent.text}">
+		</attr>
+	</attr>
+	<attr sel="#saveType" th:value="${saveType}">
+	</attr>
+</thlogic>

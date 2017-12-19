@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<link rel="stylesheet" type="text/css"
+	th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"></link>
+<style type="text/css">
+.container{
+width: 500px;
+}
+/* Error */
+.error-page {
+	max-width: 500px;
+	margin: 50px auto;
+}
+/* Widget */
+.widget {
+	border: 1px solid #c9c9c9;
+	border-radius: 3px;
+	margin-top: 10px;
+	margin-bottom: 20px;
+	background: #fafafa url('../images/cream.png') repeat;
+}
+
+.widget p {
+	margin: 3px 0px 5px 0px !important;
+	line-height: 20px;
+}
+
+.widget hr {
+	margin: 8px 0px;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #fff;
+}
+
+.widget .table {
+	margin: 0px;
+	width: 100%;
+}
+
+.widget .table .btn {
+	font-size: 11px !important;
+}
+
+.widget .table-bordered {
+	border-radius: 0px;
+	border: 0px;
+}
+
+.widget .table-bordered th {
+	border-bottom: 1px solid #ddd !important;
+}
+
+.widget .table-bordered td {
+	border-top: 0px !important;
+	border-bottom: 1px solid #ddd !important;
+	border-radius: 0px !important;
+}
+
+.widget .table-bordered td:first-child, .widget .table-bordered th:first-child
+	{
+	border-left: 0px;
+}
+
+.widget .table-bordered thead:first-child tr:first-child>th:first-child,
+	.widget .table-bordered tbody:first-child tr:first-child>td:first-child
+	{
+	border-radius: 0px;
+}
+
+.widget.wblack {
+	background: #fafafa url('../images/black.png') repeat;
+	color: #ddd;
+	border: 1px solid #222;
+}
+
+.widget.wblack hr {
+	border-top: 1px solid #444;
+	border-bottom: 1px solid #222;
+}
+
+.widget.wblack a {
+	color: #aaa;
+}
+
+.widget.wblack a:hover {
+	color: #888;
+}
+
+.widget .padd, .modal-body {
+	padding: 13px 15px;
+}
+
+.widget .widget-head, .modal-header {
+	background-color: #f8f8f8;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8),
+		to(#f2f2f2));
+	background: -webkit-linear-gradient(top, #f8f8f8, #f2f2f2);
+	background: -moz-linear-gradient(top, #f8f8f8, #f2f2f2);
+	background: -ms-linear-gradient(top, #f8f8f8, #f2f2f2);
+	background: -o-linear-gradient(top, #f8f8f8, #f2f2f2);
+	background: linear-gradient(top, #f8f8f8, #f2f2f2);
+	border-top-right-radius: 3px;
+	border-top-left-radius: 3px;
+	text-shadow: 0px 1px #fff;
+	border-bottom: 1px solid #ccc;
+	border-top: 1px solid #fff;
+	color: #666;
+	font-size: 13px;
+	font-weight: bold;
+	padding: 8px 15px;
+}
+
+.widget.wblack .widget-head {
+	background-color: #333;
+	background: -webkit-gradient(linear, left top, left bottom, from(#333),
+		to(#111));
+	background: -webkit-linear-gradient(top, #333, #111);
+	background: -moz-linear-gradient(top, #333, #111);
+	background: -ms-linear-gradient(top, #333, #111);
+	background: -o-linear-gradient(top, #333, #111);
+	background: linear-gradient(top, #333, #111);
+	text-shadow: 0px 1px #000;
+	border-bottom: 1px solid #555;
+	border-top: 1px solid #666;
+	box-shadow: inset 0px 1px 1px #444;
+	color: #ccc;
+}
+
+.widget .widget-head .widget-icons i {
+	font-size: 14px;
+	margin: 0px 4px;
+}
+
+.widget .widget-head .widget-icons a {
+	color: #aaa;
+}
+
+.widget .widget-head .widget-icons a:hover {
+	color: #999;
+}
+
+.widget.wblack .widget-head .widget-icons i {
+	font-size: 14px;
+	margin: 0px 4px;
+}
+
+.widget .widget-foot, .modal-footer {
+	background-color: #f8f8f8;
+	background: -webkit-gradient(linear, left top, left bottom, from(#f8f8f8),
+		to(#f2f2f2));
+	background: -webkit-linear-gradient(top, #f8f8f8, #f2f2f2);
+	background: -moz-linear-gradient(top, #f8f8f8, #f2f2f2);
+	background: -ms-linear-gradient(top, #f8f8f8, #f2f2f2);
+	background: -o-linear-gradient(top, #f8f8f8, #f2f2f2);
+	background: linear-gradient(top, #f8f8f8, #f2f2f2);
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+	text-shadow: 0px 1px #fff;
+	border-bottom: 1px solid #fff;
+	border-top: 1px solid #ccc;
+	padding: 8px 15px;
+	font-size: 12px;
+	color: #555;
+	box-shadow: inset 0px 1px 1px #fff;
+}
+
+.widget.wblack .widget-foot {
+	background-color: #111;
+	background: -webkit-gradient(linear, left top, left bottom, from(#222),
+		to(#111));
+	background: -webkit-linear-gradient(top, #222, #111);
+	background: -moz-linear-gradient(top, #222, #111);
+	background: -ms-linear-gradient(top, #222, #111);
+	background: -o-linear-gradient(top, #222, #111);
+	background: linear-gradient(top, #222, #111);
+	text-shadow: 0px 1px #000;
+	border-bottom: 1px solid #000;
+	border-top: 1px solid #222;
+	color: #aaa;
+	box-shadow: inset 0px 1px 1px #444;
+}
+</style>
+</head>
+<body>
+	<!-- Form area -->
+	<div class="error-page">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="widget">
+						<div class="widget-head" style="color: red;">404</div>
+						<div class="widget-content">
+							<div class="padd error">
+								<h1>找不到页面!!!</h1>
+								<p></p>
+								<br />
+								<br />
+							</div>
+							<div class="widget-foot"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+	
+</script>
+</html>

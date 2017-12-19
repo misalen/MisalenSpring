@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, minimum-scale=1">
+<link rel="stylesheet" type="text/css" th:href="@{/plugins/fb/css/bootstrap.min.css}" />
+<link rel="stylesheet" type="text/css" th:href="@{/plugins/fb/css/misalen.fb.code.css}" />
+<script th:src="@{/plugins/fb/js/jquery-1.11.0.js}" type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/plugins/fb/js/Map.js}" type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/plugins/fb/js/jquery-ui.min.js}" type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/plugins/fb/js/bootstrap.min.js}" type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/plugins/fb/js/misalen.fb.plugins.js}" type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/plugins/fb/js/misalen.fb.code.v2.js}" type="text/javascript" charset="utf-8"></script>
+		
+<title>MisalenFB</title>
+</head>
+<body>
+	<div class="container">
+		<div class="row clearfix">
+			<div class="col-md-8">
+				<div class="box">
+					<div class="box-body" style="padding: 0px;">
+						<form class="misalen-fb-control-group"></form>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-4">
+				<div class="box">
+					<div class="box-body" style="background-color: #FDFDFD;">
+						<ul id="myTab" class="nav nav-pills nav-justified misalen-nav">
+							<li role="presentation" class="active"><a href="#addField"
+								data-toggle="tab"> 添加字段 </a></li>
+							<li role="presentation"><a href="#editField"
+								data-toggle="tab">编辑字段</a></li>
+						</ul>
+						<div id="myTabContent" class="tab-content">
+							<div class="tab-pane fade in active misalen-fb-element-group"
+								id="addField">
+								<br />
+							</div>
+							<div class="tab-pane fade" id="editField">
+								<br />
+								<form class="misalen-fb-comp-group"></form>
+							</div>
+						</div>
+						<div class="misalen-fb-submit">
+							<button style="margin-top: 10px; margin-left: 40%;" type="button"
+								class="btn btn-primary btn-sm">保存表单</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript" th:inline="javascript">
+		var baseUrl= [[@{/sys/form/designer/}]];
+		var newformId= [[${primaryKey}]];
+		var MisalenFb = $('body').MisalenFb({
+			itemClick: function() {
+				$('#myTab li:eq(1) a').tab('show');
+				return true;
+			}
+		});
+		$('button').click(function() {
+			$.ajax({
+			    url:baseUrl+'save/'+newformId,
+			    type:'POST', 
+			    data:JSON.stringify(MisalenFb.data()),
+			    contentType: "application/json; charset=utf-8",
+			    dataType:'json',
+			    success:function(data){
+			    	if(data.success){
+			    		alert("保存成功");
+			    	}else{
+			    		alert("保存失败了");
+			    	}
+			    }
+			});
+		});
+		
+		$.post(baseUrl+'get/'+newformId,{},function(result){
+				MisalenFb.addControl(result.data);
+		});
+	
+
+	</script>
+
+</html>

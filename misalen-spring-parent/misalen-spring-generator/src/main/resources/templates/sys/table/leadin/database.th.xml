@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<thlogic>
+	<attr sel="#form" th:action="@{/sys/table/info/leadin}">
+	</attr>
+	<attr sel="#tableName" th:remove="all-but-first">
+		<attr sel="option" th:each="menu1 : ${tableName}"
+			th:value="${menu1.ormName}" th:text="${menu1.name}">
+		</attr>
+	</attr>
+</thlogic>

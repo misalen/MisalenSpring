@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="common_header(title,scripts,links)">
+<meta charset="utf-8" />
+<title th:replace="${title}">标题</title>
+<!-- 共工的 styles和scripts -->
+<link rel="icon" type="image/x-icon" href="@{/images/favicon.ico}">
+<link rel="stylesheet" type="text/css" th:href="@{/plugins/common/css/base.css}"></link>
+<script type="text/javascript" th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}"></link>
+<script type="text/javascript" th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css}"></link>
+<script type="text/javascript" th:src="@{/webjars/bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js}"></script>
+<link rel="stylesheet" th:href="@{/webjars/bootstrap-table/1.9.1-1/bootstrap-table.min.css}">
+<script type="text/javascript" th:src="@{/webjars/bootstrap-table/1.9.1-1/bootstrap-table.min.js}"></script>
+<script type="text/javascript" th:src="@{/webjars/bootstrap-table/1.9.1-1/locale/bootstrap-table-zh-CN.min.js}"></script>
+<script type="text/javascript" th:src="@{/plugins/layer-v3.1.0/layer.js}"></script>
+<script type="text/javascript"
+	th:src="@{/plugins/common/js/list-constant.js}"></script>
+<script type="text/javascript">
+layer.config({
+    skin:'layer-ext-yi',
+    extend:'skin/yi/style.css'
+});
+</script>
+<!-- 加入页面原有的styles和scripts -->
+<th:block th:if="${links != null}">
+	<th:block th:replace="${links}" />
+</th:block>
+<th:block th:if="${scripts != null}">
+	<th:block th:replace="${scripts}" />
+</th:block>
+</head>
+</html>

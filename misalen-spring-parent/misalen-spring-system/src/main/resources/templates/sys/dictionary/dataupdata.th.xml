@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<thlogic>
+	<attr sel="#form" th:action="@{/sys/dictionary/dataupdata}">
+	</attr>
+	<attr sel="#dtId" th:value="${model.dtId}">
+	</attr>
+	<attr sel="#primaryKey" th:value="${model.primaryKey}">
+	</attr>
+	<attr sel="#name" th:value="${model.name}">
+	</attr>
+	<attr sel="#code" th:value="${model.code}">
+	</attr>
+</thlogic>

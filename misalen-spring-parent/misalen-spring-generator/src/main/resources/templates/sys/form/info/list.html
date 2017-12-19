@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:dt="http://thymeleafexamples">
+<head
+	th:replace="common/head :: common_header(~{::title},~{::script},~{::link})">
+<meta charset="utf-8" />
+<title>列表</title>
+<script type="text/javascript"
+	th:src="@{/plugins/common/js/list-constant.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+	$(function() {
+		initSubTable();
+	});
+	var baseUrl= [[@{/sys/form/info/}]];
+	function jumpComp(){
+		window.location.href=[[@{/sys/fb/comp/}]];
+	}
+	function jumpElement(){
+		window.location.href=[[@{/sys/fb/element/}]];
+	}
+	function addEntry(){
+		var index = layer.open({
+			type : 2,
+			title : '添加',
+			shadeClose : true,
+			end:function(){
+				$('#tb_list').bootstrapTable('refresh');
+			},
+			shade : 0.8,
+			area : [ '650px', '80%' ],
+			content :baseUrl+"add"
+		});
+	}
+	function addTable(){
+		var index = layer.open({
+			type : 2,
+			title : '添加',
+			shadeClose : true,
+			end:function(){
+				$('#tb_list').bootstrapTable('refresh');
+			},
+			shade : 0.8,
+			area : [ '650px', '80%' ],
+			content :baseUrl+"table/first"
+		});
+	}
+	var event=getEvent(baseUrl,"tb_list");
+	var operate = {
+			field : 'operate',
+			title : '操作',
+			align : 'center',
+			events : event,
+			formatter : function(value, row, index) {
+				return [
+					'<button type="button" class="BtnOfAdd pointer btn btn-primary btn-xs"><i class="glyphicon glyphicon-th-list"></i>&nbsp;字段</button>',
+					'<button type="button" class="BtnOfCode pointer btn btn-info btn-xs"><i class="glyphicon glyphicon-tag"></i>&nbsp;代码</button>',
+					'<button type="button" class="BtnOfUpdate pointer btn btn-warning btn-xs"><i class="glyphicon glyphicon-edit"></i>&nbsp;编辑</button>',
+					'<button type="button" class="BtnOfDel pointer btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i>&nbsp;删除</button>',
+					].join('');
+			}
+		};
+	
+	function initSubTable() {
+		$("#tb_list").bootstrapTable(new MyTable(baseUrl,[
+		{
+			field: 'name',
+			title: '名称'
+		},
+		{
+			field: 'className',
+			title: '实体类'
+		},
+		{
+			field: 'moduleName',
+			title: '模块'
+		},
+		{
+			field: 'functionName',
+			title: '功能'
+		}
+		],operate).params());
+	}
+	function getEvent(baseUrl, tableId) {
+		return {
+			'click .BtnOfAdd': function(e, value, row, index) {
+				window.location.href=[[@{/sys/form/designer/}]] + row.primaryKey;
+			},
+			'click .BtnOfCode': function(e, value, row, index) {
+				var index = layer.open({
+					type : 2,
+					title : '生成代码',
+					shadeClose : true,
+					end : function() {
+						$('#' + tableId).bootstrapTable('refresh');
+					},
+					shade : 0.8,
+					area : [ '650px', '80%' ],
+					content : baseUrl + "code/" + row.primaryKey
+				});
+			},
+			'click .BtnOfUpdate' : function(e, value, row, index) {
+				var index = layer.open({
+					type : 2,
+					title : '编辑',
+					shadeClose : true,
+					end : function() {
+						$('#' + tableId).bootstrapTable('refresh');
+					},
+					shade : 0.8,
+					area : [ '650px', '80%' ],
+					content : baseUrl + "update/" + row.primaryKey
+				});
+			},
+			'click .BtnOfDel' : function(e, value, row, index) {
+				layer.confirm('确定删除?', {
+					btn : [ '删除', '取消' ]
+				}, function() {
+					$.get(baseUrl + "del/" + row.primaryKey, function(result) {
+						if (result) {
+							$('#' + tableId).bootstrapTable('refresh');
+							layer.msg('删除成功', {
+								icon : 1,
+								time : 1000
+							});
+						}
+					}, "json");
+				}, function() {
+					layer.closeAll('dialog');
+				});
+			}
+		}
+	}
+</script>
+</head>
+<body>
+	<div id="toolbar">
+		<table class="retrievals table noline">
+			<tbody>
+				<tr>
+					<td>
+						<div class="input-group">
+							<span class="input-group-addon explain">名称</span> <input
+								type="text" data-condition="like" name="name"
+								class="form-control">
+						</div>
+					</td>
+					<td style="text-align: right;">
+						<button class="btn btn-sm btn-warning">
+							<i class="glyphicon glyphicon-search"></i> 搜索
+						</button>
+						<button class="btn btn-sm btn-warning" onclick="addEntry()">
+							<i class="glyphicon glyphicon-plus"></i> 添加
+						</button>
+						<button class="btn btn-sm btn-warning" onclick="addTable()">
+							<i class="glyphicon glyphicon-plus"></i> 库表导入
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div class="box box-primary">
+		<div class="box-body">
+			<table id="tb_list"></table>
+		</div>
+	</div>
+
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:dt="http://thymeleafexamples">
+<head th:replace="common/head :: common_header(~{::title},~{::script},~{::link})">
+<meta charset="utf-8" />
+<title>权限添加</title>
+<link rel="stylesheet" th:href="@{/webjars/bootstrap-treeview/1.2.0/dist/bootstrap-treeview.min.css}">
+<script type="text/javascript" th:src="@{/webjars/bootstrap-treeview/1.2.0/dist/bootstrap-treeview.min.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+	$(function() {
+		$.post([[@{/sys/role/resources}]]+"/"+[[${primaryKey}]], {
+			
+		}, function(result) {
+			$('#tree').treeview(
+					{
+						data : result.data.resources,
+						highlightSelected : false,
+						showCheckbox : true,
+						onNodeChecked : function(event, node) {
+							setTreeView2();
+						},
+						onNodeUnchecked : function(event, node) {
+							setTreeView2();
+						}
+					});
+			$('#tree').treeview("expandAll");
+			var allNode=$('#tree').treeview('getEnabled');
+			for(var i=0;i<allNode.length;i++){
+				if($.inArray(allNode[i].primaryKey, result.data.roleResources)>-1){
+					$('#tree').treeview('checkNode',allNode[i].nodeId,{silent:true});  
+				}
+			}
+		});
+	});
+	function setTreeView2(){
+		var checked=$('#tree').treeview('getChecked');
+		var newArr = $.extend(true, [], checked);
+		for(var i=0;i<newArr.length;i++){
+			newArr[i].nodes=[];
+		}
+		$('#tree2').treeview({
+			levels: 1,
+			data : newArr,
+			highlightSelected : false,
+			showCheckbox : false
+		});
+	}
+	function updateRole(){
+		var allNode=$('#tree2').treeview('getEnabled');
+		for(var i=0;i<allNode.length;i++){
+			var my_input = $('<input name="resourcesIds" value="'+allNode[i].primaryKey+'" type="hidden">');  
+			$("#form").append(my_input);
+		}
+		$("form").submit();
+		//alert($("#form").html());
+	}
+	
+</script>
+</head>
+
+<body>
+	<div class="row">
+		<div class="col-sm-6">
+			<div class="box box-primary">
+				<div class="box-body">
+					<div id="tree"></div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6">
+			<div class="box box-primary">
+				<div class="box-body">
+					<div id="tree2"></div>
+				</div>
+			</div>
+			<div class="col-sm-offset-2 col-sm-10 blockquote-reverse">
+				<button type="button" class="btn btn-sm btn-default close-layer"><span class="glyphicon glyphicon-remove"></span>&nbsp;取消</button>
+				<button type="button" onclick="updateRole();" class="btn btn-sm btn-success "><span class="glyphicon glyphicon-ok"></span>&nbsp;确定</button>
+			</div>
+		</div>
+		<form id="form" method="post">
+			<input type="hidden" id="primaryKey" name="primaryKey">
+		</form>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<thlogic>
+	<attr sel="#form" th:action="@{/sys/form/info/code}">
+	</attr>
+	<attr sel="#primaryKey" th:value="${model.primaryKey}">
+	</attr>
+	<attr sel="#className" th:value="${model.className}">
+	</attr>
+	<attr sel="#moduleName" th:value="${model.moduleName}">
+	</attr>
+	<attr sel="#functionName" th:value="${model.functionName}">
+	</attr>
+	<attr sel="#projectName" th:remove="all-but-first">
+		<attr sel="option" th:each="menu1 : ${projectName}" th:value="${menu1}"
+			th:text="${menu1}">
+		</attr>
+	</attr>
+</thlogic>

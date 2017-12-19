@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<thlogic>
+	<attr sel="#form" th:action="@{/sys/form/info/update}">
+	</attr>
+	<attr sel="#primaryKey" th:value="${model.primaryKey}">
+	</attr>
+	<attr sel="#name" th:value="${model.name}">
+	</attr>
+	<attr sel="#className" th:value="${model.className}">
+	</attr>
+	<attr sel="#moduleName" th:value="${model.moduleName}">
+	</attr>
+	<attr sel="#functionName" th:value="${model.functionName}">
+	</attr>
+</thlogic>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:dt="http://thymeleafexamples">
+<head
+	th:replace="common/head :: common_header(~{::title},~{::script},~{::link})">
+<meta charset="utf-8" />
+<title>权限添加</title>
+<script type="text/javascript" th:inline="javascript">
+$(function() {
+
+$('#form').bootstrapValidator({
+	feedbackIcons : {
+		valid: 'glyphicon glyphicon-ok',
+		invalid: 'glyphicon glyphicon-remove',
+		validating: 'glyphicon glyphicon-refresh'　　　　　　　　
+	},
+	fields: {
+		text: {
+			validators: {
+				notEmpty: {
+					message: '不能为空'
+				}
+			}
+		},
+		code: {
+			validators: {
+				notEmpty: {
+					message: '不能为空'
+				} 
+			}
+		}
+	}
+});
+});
+</script>
+</head>
+
+<body>
+	<div class="box box-primary">
+		<div class="box-body">
+			<form id="form" method="post" class="form-horizontal" role="form">
+			<input type="hidden" id="primaryKey" name="primaryKey">
+				<div class="form-group">
+					<label class="col-sm-2 control-label">名称</label>
+					<div class="col-sm-10">
+						<input id="text" type="text" class="form-control" name="text"
+							maxlength="50" placeholder="最大长度50">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">描述</label>
+					<div class="col-sm-10">
+						<input id="desc" type="text" class="form-control"
+							name="desc" maxlength="255" placeholder="最大长度255">
+					</div>
+				</div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label">编码</label>
+					<div class="col-sm-10">
+						<input id="code" type="text" class="form-control"
+							name="code" maxlength="50" placeholder="最大长度50">
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10 blockquote-reverse">
+						<button type="button" class="btn btn-sm btn-default close-layer"><span class="glyphicon glyphicon-remove"></span>&nbsp;取消</button>
+						<button type="submit" class="btn btn-sm btn-success "><span class="glyphicon glyphicon-ok"></span>&nbsp;确定</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+
+</html>

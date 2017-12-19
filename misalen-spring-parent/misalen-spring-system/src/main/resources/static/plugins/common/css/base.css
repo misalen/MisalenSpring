@@ -1,0 +1,47 @@
+body {
+	background-color: #ecf0f5 !important;
+	padding: 15px;
+}
+.pointer {
+	cursor: pointer;
+	margin-right: 15px;
+}
+
+.box {
+	position: relative;
+	border-radius: 3px;
+	background: #ffffff;
+	border-top: 3px solid #d2d6de;
+	margin-bottom: 20px;
+	width: 100%;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.box.box-primary {
+	border-top-color: #009688;
+}
+
+.box-body {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+	padding: 10px;
+}
+
+.bars {
+	width: 100%;
+}
+
+.retrievals>tbody>tr>td {
+	width: 50%;
+	border-top: 0px solid #ddd !important;
+}
+
+.retrievals{
+	border-bottom: 0px solid #ddd !important;
+}
+
+.text-align-right {
+	text-align: right;
+}

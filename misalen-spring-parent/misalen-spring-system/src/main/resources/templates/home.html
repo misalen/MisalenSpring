@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>后台管理</title>
+<link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
+<link rel="stylesheet" th:href="@{/plugins/layui/css/layui.css}">
+<script type="text/javascript"
+	th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
+</head>
+<body>
+	<div class="layui-layout layui-layout-admin" data-anim="layui-anim-up">
+		<div class="layui-header">
+			<div class="layui-logo">xxxx 后台管理</div>
+			<ul class="layui-nav layui-layout-right">
+				<li class="layui-nav-item"><a href="javascript:;"> <img
+						src="http://t.cn/RCzsdCq" class="layui-nav-img"><span
+						id="nickname"> 贤心 </span></a>
+					<dl class="layui-nav-child">
+						<dd>
+							<a th:href="@{/logout}">退了</a>
+						</dd>
+					</dl></li>
+			</ul>
+		</div>
+
+		<div class="layui-side layui-bg-black">
+			<div class="layui-side-scroll">
+				<ul id="userTree" class="layui-nav layui-nav-tree" lay-filter="test">
+					<li id="userTreeLi0" class="layui-nav-item"><a
+						href="javascript:;"><i id="userTreeI0" class="layui-icon">&#xe643;</i>&nbsp;<span
+							id="userTreeA0">所有商品</span></a>
+						<dl id="userTreeDl0" class="layui-nav-child">
+							<dd id="userTreeDD0">
+								<a href="javascript:;"> <i id="userTreeI1"
+									class="layui-icon">&#xe63f;</i> &nbsp;<span id="userTreeA1">所有商品</span>
+								</a>
+							</dd>
+						</dl></li>
+					<li class="layui-nav-item"><a href="javascript:;">解决方案</a>
+						<dl class="layui-nav-child">
+							<dd>
+								<a href="javascript:;">列表一</a>
+							</dd>
+							<dd>
+								<a href="javascript:;">列表二</a>
+							</dd>
+							<dd>
+								<a href="">超链接</a>
+							</dd>
+						</dl></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="layui-body">
+			<iframe id="main" runat="server" src="" width="100%" height="99%"
+				frameborder="no" border="0" marginwidth="0" marginheight="0"
+				allowtransparency="yes"></iframe>
+		</div>
+
+		<div class="layui-footer">
+			<!-- 底部固定区域 -->
+			© xxxx.com - xxxx科技有限公司
+		</div>
+	</div>
+</body>
+<script th:src="@{/plugins/layui/layui.all.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+	$(function() {
+		var baseUrl=[[@{/}]];
+		layui.use('element', function() {
+			var element = layui.element;
+		});
+		$("#userTree a").click(function() {
+			var url = $(this).find('span').data("url");
+			if (url) {
+				$('#main').attr('src', baseUrl+url);
+			}
+		});
+	});
+</script>
+</html>

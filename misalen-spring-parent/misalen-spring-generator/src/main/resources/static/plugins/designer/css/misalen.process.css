@@ -1,0 +1,175 @@
+html,
+body {
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+.mini-layout {
+	min-width: 100%;
+	position: absolute;
+	overflow-x: auto;
+	height: 100%;
+	background: rgb(58, 65, 68) url(../images/grid.png) repeat;
+}
+
+.mi_rectangles {
+	cursor: move;
+	background-color: #3bb3e0;
+	width: 130px;
+	height: 35px;
+	line-height: 25px;
+	padding: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.mi_arrow {
+	cursor: crosshair;
+	background-color: #2591b4;
+	background-image: url(../images/right_arrow.png);
+	background-repeat: no-repeat;
+	background-position: center;
+	width: 20px;
+	height: 20px;
+	float: right;
+	margin-right: 5px;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-o-border-radius: 50%;
+	border-radius: 50%;
+	-webkit-box-shadow: inset 0px 1px 0px #60c9f0, 0px 3px 0px #0e3871, 0px 6px 3px #1a80a6;
+	-moz-box-shadow: inset 0px 1px 0px #60c9f0, 0px 3px 0px #0e3871, 0px 6px 3px #1a80a6;
+	-o-box-shadow: inset 0px 1px 0px #60c9f0, 0px 3px 0px #0e3871, 0px 6px 3px #1a80a6;
+	box-shadow: inset 0px 1px 0px #60c9f0, 0px 3px 0px #0e3871, 0px 6px 3px #1a80a6;
+}
+
+.mi_text {
+	margin-top: 5px;
+	text-align: center;
+	overflow: hidden;
+	word-break: keep-all;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 90px;
+	font-size: 14px;
+	color: #fff;
+	font-family: "微软雅黑", "黑体", "宋体";
+	float: left;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.mi_diamond {
+	cursor: move;
+	width: 40px;
+	height: 40px;
+	background: #3bb3e0;
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.mi_square {
+	position: absolute;
+	cursor: move;
+	width: 45px;
+	height: 45px;
+	background: #3bb3e0;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	-o-border-radius: 5px;
+	border-radius: 5px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.mi_shape {
+	cursor: move;
+	width: 45px;
+	height: 45px;
+	background: #3bb3e0;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-o-border-radius: 50%;
+	border-radius: 50%;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.mi_move {
+	cursor: crosshair;
+	width: 30px;
+	height: 30px;
+	margin: 5px;
+	-webkit-transform: rotate(-45deg);
+	-moz-transform: rotate(-45deg);
+	-ms-transform: rotate(-45deg);
+	-o-transform: rotate(-45deg);
+	transform: rotate(-45deg);
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.mi_start {
+	cursor: crosshair;
+	width: 30px;
+	height: 30px;
+	margin: 7px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.mi_stop {
+	width: 22px;
+	height: 22px;
+	margin: 11px;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.mi_effect {
+	background-image: linear-gradient(bottom, rgb(44, 160, 202) 0%, rgb(62, 184, 229) 100%);
+	background-image: -o-linear-gradient(bottom, rgb(44, 160, 202) 0%, rgb(62, 184, 229) 100%);
+	background-image: -moz-linear-gradient(bottom, rgb(44, 160, 202) 0%, rgb(62, 184, 229) 100%);
+	background-image: -webkit-linear-gradient(bottom, rgb(44, 160, 202) 0%, rgb(62, 184, 229) 100%);
+	background-image: -ms-linear-gradient(bottom, rgb(44, 160, 202) 0%, rgb(62, 184, 229) 100%);
+	background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0, rgb(44, 160, 202)), color-stop(1, rgb(62, 184, 229)));
+}
+
+.mi_target {
+	position: absolute;
+}
+
+.mi_source {}
+
+.mi_label {
+	color: #FFFFFF;
+	font-size: 12px;
+	font-family: "微软雅黑", "黑体", "宋体";
+	float: left;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}

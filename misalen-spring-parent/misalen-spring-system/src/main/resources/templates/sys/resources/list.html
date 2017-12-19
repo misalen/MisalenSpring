@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head
+	th:replace="common/head :: common_header(~{::title},~{::script},~{::link})">
+<meta charset="utf-8" />
+<title>权限列表</title>
+<script type="text/javascript" th:inline="javascript">
+			$(function() {
+				initSubTable1();
+			});
+			function addRoot(){
+				layer.open({
+					type : 2,
+					title : '新增一级资源',
+					shadeClose : true,
+					shade : 0.8,
+					end:function(){
+						$('#tb_list').bootstrapTable('refresh');
+					},
+					area : [ '650px', '80%' ],
+					content : [[@{/sys/resources/add}]]+"/root"
+				});
+			}
+			function getEvents() {
+				return {
+					'click .BtnOfAdd' : function(e, value, row, index) {
+						layer.open({
+							type : 2,
+							title : '添加',
+							shadeClose : true,
+							shade : 0.8,
+							end:function(){
+								$('#tb_list').bootstrapTable('refresh');
+							},
+							area : [ '650px', '80%' ],
+							content : [[@{/sys/resources/add}]]+"/"+row.primaryKey
+						});
+					},
+					'click .BtnOfUpdate' : function(e, value, row, index) {
+						var index = layer.open({
+							type : 2,
+							title : '编辑',
+							shadeClose : true,
+							end:function(){
+								$('#tb_list').bootstrapTable('refresh');
+							},
+							shade : 0.8,
+							area : [ '650px', '80%' ],
+							content : [[@{/sys/resources/update}]]+"/"+row.primaryKey
+						});
+					},
+					'click .BtnOfDel' : function(e, value, row, index) {
+						layer.confirm('确定删除?', {
+							btn : [ '删除', '取消' ]
+						}, function() {
+							$.get([[@{/sys/resources/del}]]+"/"+row.primaryKey,
+									function(result) {
+										if (result) {
+											$('#tb_list').bootstrapTable('refresh');
+											layer.msg('删除成功', {
+												icon : 1,
+												time : 1000
+											});
+										}
+									}, "json");
+						}, function() {
+							layer.closeAll('dialog');
+						});
+					}
+				}
+			}
+			
+			function getEvents2() {
+				return {
+					'click .BtnOfAdd' : function(e, value, row, index) {
+						layer.open({
+							type : 2,
+							title : '添加',
+							shadeClose : true,
+							shade : 0.8,
+							end:function(){
+								$('#tb_list').bootstrapTable('refresh');
+							},
+							area : [ '650px', '80%' ],
+							content : [[@{/sys/resources/add}]]+"/"+row.primaryKey
+						});
+					},
+					'click .BtnOfUpdate' : function(e, value, row, index) {
+						var index = layer.open({
+							type : 2,
+							title : '编辑',
+							shadeClose : true,
+							shade : 0.8,
+							end:function(){
+								$('#tb_list').bootstrapTable('refresh');
+							},
+							area : [ '650px', '80%' ],
+							content : [[@{/sys/resources/update}]]+"/"+row.primaryKey
+						});
+						//layer.full(index);
+					},
+					'click .BtnOfDel' : function(e, value, row, index) {
+						layer.confirm('确定删除?', {
+							btn : [ '删除', '取消' ]
+						}, function() {
+							$.get([[@{/sys/resources/del}]]+"/"+row.primaryKey,
+									function(result) {
+										if (result) {
+											$('#tb_list').bootstrapTable('refresh');
+											layer.msg('删除成功', {
+												icon : 1,
+												time : 1000
+											});
+										}
+									}, "json");
+						}, function() {
+							layer.closeAll('dialog');
+						});
+					}
+				}
+			}
+			function getEvents3() {
+				return {
+					'click .BtnOfUpdate' : function(e, value, row, index) {
+						var index = layer.open({
+							type : 2,
+							title : '编辑',
+							shadeClose : true,
+							shade : 0.8,
+							end:function(){
+								$('#tb_list').bootstrapTable('refresh');
+							},
+							area : [ '650px', '80%' ],
+							content : [[@{/sys/resources/update}]]+"/"+row.primaryKey
+						});
+					},
+					'click .BtnOfDel' : function(e, value, row, index) {
+						layer.confirm('确定删除?', {
+							btn : [ '删除', '取消' ]
+						}, function() {
+							$.get([[@{/sys/resources/del}]]+"/"+row.primaryKey,
+									function(result) {
+										if (result) {
+											$('#tb_list').bootstrapTable('refresh');
+											layer.msg('删除成功', {
+												icon : 1,
+												time : 1000
+											});
+										}
+									}, "json");
+						}, function() {
+							layer.closeAll('dialog');
+						});
+					}
+				}
+			}
+			function initSubTable1(){
+					$("#tb_list").bootstrapTable({
+        				url: [[@{/sys/resources/list}]],
+       				 	method: 'post',
+       					toolbarAlign:'right',
+       				 	toolbar: '#toolbar',                //工具按钮用哪个容器
+       				 	queryParamsType: "nolimit",
+        				striped: true,                      //是否显示行间隔色
+        				cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        				pagination: true,                   //是否显示分页（*）
+        				detailView: true,					//父子表
+        				sidePagination: "server",			//服务端分页
+						pageNumber:1,                       //初始化加载第一页，默认第一页
+						pageSize: 10,                       //每页的记录行数（*）
+						pageList: [], 
+						queryParams : function queryParams(params) {
+			 				var param = {
+            					"page":parseInt(params.pageNumber),
+            					"rows":params.limit,
+            					"retrievals":[{
+        						 	"name":"saveType",
+        							"condition":"eq",
+        							"value":"menu1"
+        						}]
+            				};
+						return param;
+        				},
+        				responseHandler: function(res) {
+            				return {
+                				"total": res.data.total,//总页数
+                				"rows": res.data.list   //数据
+             				};
+        				},
+        				columns: [{
+            				field: 'seq',
+            				title: '序号'
+        				},{
+            				field: 'text',
+           					title: '菜单名称'
+        				//},{
+            				//field: 'icon',
+           					//title: '图标'
+        				},{
+            				field: 'resourceUrl',
+            				title: '地址'
+        				},{
+							field : 'operate',
+							title : '操作',
+							align : 'center',
+							events : getEvents(),
+							formatter : function(value, row, index) {
+								return ['<button type="button" class="BtnOfAdd pointer btn btn-success btn-xs"><i class="glyphicon glyphicon-plus"></i>&nbsp;新增二级菜单</button>',
+									'<button type="button" class="BtnOfUpdate pointer btn btn-warning btn-xs"><i class="glyphicon glyphicon-edit"></i>&nbsp;编辑</button>',
+									'<button type="button" class="BtnOfDel pointer btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i>&nbsp;删除</button>', ].join('');
+							},
+						} ],
+        				//注册加载子表的事件注意下这里的三个参数！
+        				onExpandRow: function (index, row, $detail) {
+        					initSubTable2(index, row, $detail);
+        				}
+    				});	
+				}
+			function initSubTable2(index, row, $detail){
+				 var parentId = row.primaryKey;
+			        var cur_table = $detail.html('<table></table>').find('table');
+			        $(cur_table).bootstrapTable({
+			            url: [[@{/sys/resources/list}]],
+			            method: 'post',
+			            queryParamsType: "nolimit",
+			            striped: true,                      //是否显示行间隔色
+			            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+			            pagination: true,                   //是否显示分页（*）
+			            detailView: true,					//父子表
+			            sidePagination: "server",			//服务端分页
+			    		pageNumber:1,                       //初始化加载第一页，默认第一页
+			    		pageSize: 10,                       //每页的记录行数（*）
+			    		pageList: [], 
+			    		queryParams : function queryParams(params) {
+			    			console.log(params);
+			    			 var param = {
+			                	"page":parseInt(params.pageNumber),
+			                	"rows":params.limit,
+			                	"retrievals":[{
+        						 	"name":"saveType",
+        							"condition":"eq",
+        							"value":"menu2"
+        						},{
+        							"name":"parentId",
+        							"condition":"eq",
+        							"value":parentId
+        						}]
+			                };
+			    			return param;
+			            },
+			            responseHandler: function(res) {
+			                return {
+			                    "total": res.data.total,//总页数
+			                    "rows": res.data.list   //数据
+			                 };
+			            },
+			            detailView: true,//父子表
+			            pageSize: 10,
+			            pageList: [],
+			            columns: [{
+			                field: 'seq',
+			                title: '序号'
+			            },{
+			                field: 'text',
+			                title: '菜单名称'
+			           // },{
+			              //  field: 'icon',
+			              //  title: '图标'
+			            },{
+			                field: 'resourceUrl',
+			                title: '地址'
+			            },{
+			    			field : 'operate',
+			    			title : '操作',
+			    			align : 'center',
+			    			events : getEvents2(),
+			    			formatter : function(value, row, index) {
+			    				return ['<span class="BtnOfAdd pointer glyphicon glyphicon-plus">新增按钮</span>',//
+			    					'<span class="BtnOfUpdate pointer glyphicon glyphicon-edit" >编辑</span>',//
+			    					'<span class="BtnOfDel pointer glyphicon glyphicon-remove">删除</span>', ].join('');
+			    			},
+			    		} ],
+			            //无线循环取子表，直到子表里面没有记录
+			            onExpandRow: function (index, row, $Subdetail) {
+			            	initSubTable3(index, row, $Subdetail);
+			            }
+			        });	
+			}
+			function initSubTable3(index, row, $detail){
+				 var parentId = row.primaryKey;
+			        var cur_table = $detail.html('<table></table>').find('table');
+			        $(cur_table).bootstrapTable({
+			            url: [[@{/sys/resources/list}]],
+			            method: 'post',
+			            queryParamsType: "nolimit",
+			            striped: true,                      //是否显示行间隔色
+			            cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+			            pagination: true,                   //是否显示分页（*）
+			            detailView: false,					//父子表
+			            sidePagination: "server",			//服务端分页
+			    		pageNumber:1,                       //初始化加载第一页，默认第一页
+			    		pageSize: 10,                       //每页的记录行数（*）
+			    		pageList: [], 
+			    		queryParams : function queryParams(params) {
+			    			console.log(params);
+			    			 var param = {
+			                	"page":parseInt(params.pageNumber),
+			                	"rows":params.limit,
+			                	"retrievals":[{
+        						 	"name":"saveType",
+        							"condition":"eq",
+        							"value":"button"
+        						},{
+        							"name":"parentId",
+        							"condition":"eq",
+        							"value":parentId
+        						}]
+			                };
+			    			return param;
+			            },
+			            responseHandler: function(res) {
+			                return {
+			                    "total": res.data.total,//总页数
+			                    "rows": res.data.list   //数据
+			                 };
+			            },
+			            detailView: true,//父子表
+			            pageSize: 10,
+			            pageList: [],
+			            columns: [{
+			                field: 'seq',
+			                title: '序号'
+			            },{
+			                field: 'text',
+			                title: '菜单名称'
+			           // },{
+			             //   field: 'icon',
+			            //    title: '图标'
+			            },{
+			                field: 'resourceUrl',
+			                title: '地址'
+			            },{
+			    			field : 'operate',
+			    			title : '操作',
+			    			align : 'center',
+			    			events : getEvents(),
+			    			formatter : function(value, row, index) {
+			    				return ['<span class="BtnOfUpdate pointer glyphicon glyphicon-edit">编辑</span>',//
+			    					'<span class="BtnOfDel pointer glyphicon glyphicon-remove">删除</span>', ].join('');
+			    			},
+			    		} ]
+			        });	
+			}
+		</script>
+</head>
+<body>
+	<div id="toolbar">
+		<div class="pull-right">
+			<button class="btn btn-sm btn-warning" onclick="addRoot()">
+				<i class=" glyphicon glyphicon-plus"></i> 添加一级资源
+			</button>
+		</div>
+	</div>
+	<div class="box box-primary">
+		<div class="box-body">
+			<table id="tb_list"></table>
+		</div>
+	</div>
+</body>
+
+</html>

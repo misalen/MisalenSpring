@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<thlogic>
+	<attr sel="#form" th:action="@{/sys/resources/update}">
+	</attr>
+	<attr sel="#primaryKey" th:value="${sysResources.primaryKey}">
+	</attr>
+	<attr sel="#text" th:value="${sysResources.text}">
+	</attr>
+	<attr sel="#resourceUrl" th:value="${sysResources.resourceUrl}">
+	</attr>
+	<attr sel="#icon" th:value="${sysResources.icon}">
+	</attr>
+	<attr sel="#seq" th:value="${sysResources.seq}">
+	</attr>
+	<attr sel="#saveType" th:value="${sysResources.saveType}">
+	</attr>
+	<attr sel="#parent" th:if="${parent!=null}">
+		<attr sel="#parentId" th:value="${parent.primaryKey}">
+		</attr>
+		<attr sel="#parentText" th:value="${parent.text}">
+		</attr>
+	</attr>
+</thlogic>

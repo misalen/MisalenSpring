@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<thlogic>
+	<attr sel="#form" th:action="@{/sys/admin/update/role}">
+	</attr>
+	<attr sel="#primaryKey" th:value="${primaryKey}">
+	</attr>
+</thlogic>

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<thlogic>
+	<attr sel="#form" th:action="@{/sys/dictionary/dataadd}">
+	</attr>
+		<attr sel="#dtId" th:value="${primaryKey}">
+	</attr>
+</thlogic>

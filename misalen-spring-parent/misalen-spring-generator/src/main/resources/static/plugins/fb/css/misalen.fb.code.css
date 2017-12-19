@@ -1,0 +1,128 @@
+body {
+	background-color: #ecf0f5;
+	padding: 15px;
+}
+
+
+/**面板样式**/
+
+.box {
+	height: 590px;
+	position: relative;
+	border-radius: 3px;
+	background: #ffffff;
+	border-top: 3px solid #d2d6de;
+	width: 100%;
+	box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+	border-top-color: #009688;
+}
+
+.box-body {
+	height: 100%;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+	border-bottom-right-radius: 3px;
+	border-bottom-left-radius: 3px;
+	padding: 10px;
+	overflow-y: auto;
+}
+
+
+/** 导航标题样式 **/
+
+.misalen-nav li a {
+	border: 1px solid #d2d6de;
+	font-size: 12px;
+	height: 30px;
+	line-height: 30px;
+	padding: 0px;
+	margin: 0px;
+	border-radius: 0px;
+}
+
+
+/** 元素 **/
+
+.misalen-fb-element {
+	font-family: "Pingfang SC", "Helvetica Neue", "Microsoft Yahei", Helvetica, Arial, "Hiragino Sans GB", "Microsoft Sans Serif", "WenQuanYi Micro Hei", sans;
+	width: 49%;
+	float: left;
+	font-size: 12px;
+	background: #FFF;
+	text-align: left;
+	margin: 0.5% 0.5% 5px;
+	border: 1px solid #D9D9D9;
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+	padding-left: 15px;
+	padding-right: 15px;
+	color: #545454;
+	line-height: 28px;
+	cursor: move;
+}
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+	cursor: default !important;
+	background-color: transparent !important;
+}
+
+.misalen-fb-control {
+	position: relative;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.misalen-fb-control:hover {
+	background-color: rgba(0, 154, 255, 0.2);
+}
+
+.misalen-fb-control-click {
+	background-color: rgba(0, 154, 255, 0.2);
+	border-top: 1px dashed #009AFF;
+	border-bottom: 1px dashed #009AFF;
+}
+
+.misalen-state-highlight {
+	height: 100px;
+	width: 100%;
+	background: rgba(0, 154, 255, 0.1);
+}
+
+.misalen-fb-control-group {
+	height: 100%;
+}
+
+.misalen-fb-remove {
+	border: 1px solid #D9D9D9;
+	box-shadow: 0 0 1px rgba(0, 0, 0, 0.1);
+	cursor: pointer;
+	vertical-align: middle;
+	padding-left: 2px;
+	padding-top: 4px;
+	padding-right: 2px;
+	background-color: #FFFFFF;
+	font-size: 16px;
+	color: #FF3824;
+	position: absolute;
+	display: block;
+	right: 15px;
+	bottom: -10px;
+}
+
+.misalen-fb-remove:hover {
+	background-color: #FF3824;
+	color: #FFFFFF;
+}
+
+.misalen-fb-submit {
+	border-top: 1px solid #EEEEEE;
+	background-color: #FFFFFF;
+	position: absolute;
+	left: 0px;
+	width: 100%;
+	height: 45px;
+	bottom: 0px;
+}

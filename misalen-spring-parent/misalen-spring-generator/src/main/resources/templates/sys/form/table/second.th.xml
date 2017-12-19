@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<thlogic>
+	<attr sel="#form" th:action="@{/sys/form/info/table/second}">
+	</attr>
+	<attr sel="#tableId" th:value="${model.primaryKey}">
+	</attr>
+	<attr sel="#name" th:value="${model.name}">
+	</attr>
+	<attr sel="#className" th:value="${model.name}">
+	</attr>
+</thlogic>
