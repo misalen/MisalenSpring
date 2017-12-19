@@ -17,3 +17,5 @@
 >`misalen-spring-logback`:日志服务中心<br>
 >`misalen-spring-crawler`:可订阅爬虫服务<br>
 >`misalen-spring-test`:自动化测试、测试用例、测试文档、postman脚本<br>
+
+详细说明会在博客中持续更新 http://zhaoguochao.com/tags/Misalen/
