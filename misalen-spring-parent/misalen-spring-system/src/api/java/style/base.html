@@ -1,44 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
 
-	<head>
-		<meta charset="utf-8" />
-		<title>接口文档基础说明</title>
-		<link rel="stylesheet" type="text/css" href="styles/css/bootstrap.min.css" />
-	</head>
+<head>
+<meta charset="utf-8" />
+<title>接口文档基础说明</title>
+<link rel="stylesheet" type="text/css"
+	href="styles/css/bootstrap.min.css" />
+</head>
 
-	<body style="padding: 30px;background: #eff0f4;">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-1">&nbsp;</div>
-				<div class="col-md-10 panel">
-					<h3>接口文档基础说明</h3>
-					<hr />
-					<h4>一.基本规则及配置<h4>
-					<blockquote>
-						<p>1. 基础地址:</p>
-						<pre>
+<body style="padding: 30px; background: #eff0f4;">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-1">&nbsp;</div>
+			<div class="col-md-10 panel">
+				<h3>接口文档基础说明</h3>
+				<hr />
+				<h4>
+					一.基本规则及配置
+					<h4>
+						<blockquote>
+							<p>1. 基础地址:</p>
+							<pre>
 测试:http://.......
 正式:http://.......</pre>
-					</blockquote>
-					<blockquote>
-						<p>2. 基础定义:</p>
-						<pre>
+						</blockquote>
+						<blockquote>
+							<p>2. 基础定义:</p>
+							<pre>
 MD5加密为32位大写
 文档中Date类型参数和返回值都为Long类型13位时间戳
 用到的字典数据会在基础配置接口中返回</pre>
-					</blockquote>
-					<hr />
-					<h4>二.基本请求<h4>
-					<blockquote>
-						<p>1. 请求协议:
-						<pre>
+						</blockquote>
+						<hr />
+						<h4>
+							二.基本请求
+							<h4>
+								<blockquote>
+									<p>1. 请求协议:
+									<pre>
 http:// -> POST -> JSON</pre>
-						</p>
-					</blockquote>
-					<blockquote>
-						<p>2. 请求格式</p>
-<pre>
+									</p>
+								</blockquote>
+								<blockquote>
+									<p>2. 请求格式</p>
+									<pre>
 {
 	"filter": {
 		"imei": "11111111111",//设备IMEI
@@ -52,27 +57,29 @@ http:// -> POST -> JSON</pre>
 	}
 }
 </pre>
-<pre>sign计算方式:
+									<pre>sign计算方式:
 sign =MD5(imei+macCode)+MD5(nonceStr+String(macTime)) 现在的sign是64位
 sign =MD5(sign)
 </pre>
-					</blockquote>
-					<hr />
-					<h4>三.基本返回<h4>
-						<blockquote>
-						<p>1.基本结构(json数据)</p>
-						<pre>
+								</blockquote>
+								<hr />
+								<h4>
+									三.基本返回
+									<h4>
+										<blockquote>
+											<p>1.基本结构(json数据)</p>
+											<pre>
 {
     "errorCode": 200,//错误码 200为成功 小于1000位系统错误(404等) 大于等于1000位为接口错误
     "message": "ok",//错误信息
     "data": ...//接口文档中的返回数据
 }
 						</pre>
-						</blockquote>
-				</div>
-				<div class="col-md-1">&nbsp;</div>
+										</blockquote>
 			</div>
+			<div class="col-md-1">&nbsp;</div>
 		</div>
-	</body>
+	</div>
+</body>
 
 </html>

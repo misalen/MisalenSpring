@@ -1,4 +1,4 @@
-package org.misalen.common.aop;
+package org.misalen.common.shiro;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -9,8 +9,6 @@ import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
-import org.misalen.common.shiro.ShiroManage;
-import org.misalen.common.shiro.ShiroRealmDb;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

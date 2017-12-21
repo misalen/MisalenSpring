@@ -7,7 +7,7 @@ import java.util.Map;
 import org.misalen.common.advice.structure.RestResult;
 import org.misalen.common.annotations.SerializedField;
 import org.misalen.common.annotations.SerializedFields;
-import org.misalen.common.aop.ShiroAspect.UpdatePerm;
+import org.misalen.common.shiro.ShiroAspect.UpdatePerm;
 import org.misalen.common.utils.PageFrom;
 import org.misalen.system.domain.SysRole;
 import org.misalen.system.service.SysResourcesService;
