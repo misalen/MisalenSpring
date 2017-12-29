@@ -14,9 +14,9 @@ public class ShiroTest {
 	SysConversionService sysConversionService; 
 	@Test
 	public void run() throws Exception {
-		sysConversionService.findByChinese("提交");
-		sysConversionService.findByChinese("登陆");
-		sysConversionService.findByChinese("登录");
+		sysConversionService.findByOriginal("提交");
+		sysConversionService.findByOriginal("登陆");
+		sysConversionService.findByOriginal("登录");
 	}
 
 }

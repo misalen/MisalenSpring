@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:dt="http://thymeleafexamples">
 <head
 	th:replace="common/head :: common_header(~{::title},~{::script},~{::link})">
 <meta charset="utf-8" />
-<title>权限添加</title>
+<title>更新</title>
 <script type="text/javascript" th:inline="javascript">
 $(function() {
     $('#form').bootstrapValidator({
@@ -13,25 +13,14 @@ $(function() {
             validating: 'glyphicon glyphicon-refresh'　　　　　　　　
         },
         fields: {
-        	name: {
+        	        	original: {
                 validators: {
                     notEmpty: {
                         message: '不能为空'
                     }
                 }
-            },className: {
-                validators: {
-                    notEmpty: {
-                        message: '不能为空'
-                    }
-                }
-            },moduleName: {
-                validators: {
-                    notEmpty: {
-                        message: '不能为空'
-                    }
-                }
-            },functionName: {
+            },
+        	escape: {
                 validators: {
                     notEmpty: {
                         message: '不能为空'
@@ -48,21 +37,15 @@ $(function() {
 	<div class="box box-primary">
 		<div class="box-body">
 			<form id="form" method="post" role="form">
-				<input type="hidden" id="primaryKey" name="primaryKey">
-				<div class="form-group">
-					<label for="name">名称</label> <input id="name" name="name"
-						type="text" class="form-control" maxlength="255">
-				</div>
-				<div class="form-group">
-					<label for="className">实体类名称</label> <input id="className"
-						name="className" type="text" class="form-control" maxlength="255">
-				</div>
-				<div class="form-group">
-					<label for="className">模块名称</label> <input id="moduleName" name="moduleName" type="text" class="form-control" maxlength="255">
-				</div>
-				<div class="form-group">
-					<label for="className">功能名称</label> <input id="functionName" name="functionName" type="text" class="form-control" maxlength="255">
-				</div>
+			<input type="hidden" id="primaryKey" name="primaryKey">
+							<div class="form-group">
+								<label for="original">原始</label>
+								<input id="original" name="original" type="text" class="form-control" >
+							</div>
+							<div class="form-group">
+								<label for="escape">转义</label>
+								<input id="escape" name="escape" type="text" class="form-control" >
+							</div>
 				<div class="form-group">
 					<div class="text-align-right">
 						<button type="button" class="btn btn-sm btn-default close-layer"><span class="glyphicon glyphicon-remove"></span>&nbsp;取消</button>

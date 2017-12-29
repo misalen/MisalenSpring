@@ -15,6 +15,7 @@ $(function() {
         fields: {
         	<#list list as item>
         	<#if item.mandatory>
+        	<#if item.accessUpdate>
         	${item.named.lowerCaseFirstName}: {
                 validators: {
                     notEmpty: {
@@ -22,6 +23,7 @@ $(function() {
                     }
                 }
             },
+            </#if>
             </#if>
             </#list>
         }
@@ -36,6 +38,7 @@ $(function() {
 			<form id="form" method="post" role="form">
 			<input type="hidden" id="primaryKey" name="primaryKey">
 							<#list list as item>
+							<#if item.accessUpdate>
 							<#if item.elementId=='date'>
 							<div class="form-group">
 								<label for="${item.named.lowerCaseFirstName}">${item.title}</label>
@@ -81,6 +84,7 @@ $(function() {
 								<label for="${item.named.lowerCaseFirstName}">${item.title}</label>
 								<input id="${item.named.lowerCaseFirstName}" name="${item.named.lowerCaseFirstName}" type="text" class="form-control" >
 							</div>
+							</#if>
 							</#if>
            					</#list>
 				<div class="form-group">

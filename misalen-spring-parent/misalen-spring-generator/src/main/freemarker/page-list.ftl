@@ -28,6 +28,7 @@
 	function initSubTable() {
 		$("#tb_list").bootstrapTable(new MyTable(baseUrl,[
 		<#list list as item>
+		<#if item.accessList>
 		<#if item.elementId=='date'>
 		{
 			field: '${item.named.lowerCaseFirstName}',
@@ -60,11 +61,20 @@
 				return format(new Date(value), 'yyyy-MM-dd hh:mm:ss');
 			}
 		},
+		<#elseif item.elementId=='date'>
+		{
+			field: '${item.named.lowerCaseFirstName}',
+			title: '${item.title}',
+			formatter : function(value, row, index) {
+				return format(new Date(value), 'yyyy-MM-dd');
+			}
+		},
 		<#else>
 		{
 			field: '${item.named.lowerCaseFirstName}',
 			title: '${item.title}'
 		},
+		</#if>
 		</#if>
 		</#list>
 		{
@@ -80,11 +90,23 @@
 </head>
 <body>
 	<div id="toolbar">
-		<div class="pull-right">
-			<button class="btn btn-sm btn-warning" onclick="addEntry()">
-				<i class=" glyphicon glyphicon-plus"></i> 添加
-			</button>
-		</div>
+		<table class="retrievals table noline">
+			<tbody>
+				<tr>
+					<td>
+						
+					</td>
+					<td style="text-align: right;">
+						<button class="btn btn-sm btn-warning">
+							<i class="glyphicon glyphicon-search"></i> 搜索
+						</button>
+						<button class="btn btn-sm btn-warning" onclick="addEntry()">
+							<i class="glyphicon glyphicon-plus"></i> 添加
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 	<div class="box box-primary">
 		<div class="box-body">
@@ -92,8 +114,10 @@
 		</div>
 	</div>
 	<#list list as item>
+	<#if item.accessList>
 	<#if item.elementId== 'code' >
 	<dt:html type="input" code="${item.dtcode}">
+	</#if>
 	</#if>
 	</#list>
 </body>

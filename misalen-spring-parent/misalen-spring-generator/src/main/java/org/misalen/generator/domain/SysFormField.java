@@ -61,6 +61,22 @@ public class SysFormField extends BaseDomain {
 	@ModelComment("后缀")
 	private String suffix;
 
+	@ModelComment("是否到添加页面")
+	@Column(nullable = false)
+	private Boolean accessAdd=true;
+	
+	@ModelComment("是否到更新页面")
+	@Column(nullable = false)
+	private Boolean accessUpdate=true;
+	
+	@ModelComment("是否到list字段")
+	@Column(nullable = false)
+	private Boolean accessList=true;
+	
+	@ModelComment("是否是搜索条件")
+	@Column(nullable = false)
+	private Boolean accessSearch=false;
+	
 	@ModelComment("是否必填")
 	@Column(nullable = false)
 	private Boolean mandatory;
@@ -76,6 +92,78 @@ public class SysFormField extends BaseDomain {
 	@Transient
 	@ModelComment("java类型,模板生成用到")
 	private String javaType;
+
+	/**  
+	 * 获取accessAdd  
+	 * @return accessAdd accessAdd  
+	 */
+	public Boolean getAccessAdd() {
+		return accessAdd;
+	}
+	
+
+	/**  
+	 * 设置accessAdd  
+	 * @param accessAdd accessAdd  
+	 */
+	public void setAccessAdd(Boolean accessAdd) {
+		this.accessAdd = accessAdd;
+	}
+	
+
+	/**  
+	 * 获取accessUpdate  
+	 * @return accessUpdate accessUpdate  
+	 */
+	public Boolean getAccessUpdate() {
+		return accessUpdate;
+	}
+	
+
+	/**  
+	 * 设置accessUpdate  
+	 * @param accessUpdate accessUpdate  
+	 */
+	public void setAccessUpdate(Boolean accessUpdate) {
+		this.accessUpdate = accessUpdate;
+	}
+	
+
+	/**  
+	 * 获取accessList  
+	 * @return accessList accessList  
+	 */
+	public Boolean getAccessList() {
+		return accessList;
+	}
+	
+
+	/**  
+	 * 设置accessList  
+	 * @param accessList accessList  
+	 */
+	public void setAccessList(Boolean accessList) {
+		this.accessList = accessList;
+	}
+	
+
+	/**  
+	 * 获取accessSearch  
+	 * @return accessSearch accessSearch  
+	 */
+	public Boolean getAccessSearch() {
+		return accessSearch;
+	}
+	
+
+	/**  
+	 * 设置accessSearch  
+	 * @param accessSearch accessSearch  
+	 */
+	public void setAccessSearch(Boolean accessSearch) {
+		this.accessSearch = accessSearch;
+	}
+	
 
 	/**
 	 * 获取suffix

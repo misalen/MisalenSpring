@@ -6,8 +6,10 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.misalen.common.advice.structure.RestResult;
+import org.misalen.common.annotations.DataAccess;
 import org.misalen.common.annotations.ModelComment;
 import org.misalen.common.annotations.SerializedField;
 import org.misalen.common.annotations.SerializedFields;
@@ -21,7 +23,6 @@ import org.misalen.generator.domain.SysTableInfo;
 import org.misalen.generator.service.SysTableColumnService;
 import org.misalen.generator.service.SysTableInfoService;
 import org.misalen.hibernate.DbTableService;
-import org.misalen.hibernate.tool.util.HibernateToFormTypHelper;
 import org.misalen.system.controllers.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -101,6 +102,10 @@ public class SysTableInfoController extends BaseController {
 		formInfo.setOrmType("TABLE");
 		sysTableInfoService.save(formInfo);
 		for (Field field : clazz.getDeclaredFields()) {
+			Transient transient1 = field.getAnnotation(Transient.class);
+			if (transient1 != null) {
+				continue;
+			}
 			SysTableColumn column = new SysTableColumn();
 			column.setTableId(formInfo.getPrimaryKey());
 			column.setName(MyImplicitNamingStrategy.addUnderscores(field.getName()));
@@ -118,7 +123,14 @@ public class SysTableInfoController extends BaseController {
 			} else {
 				column.setNullable(false);
 			}
-			column.setType(HibernateToFormTypHelper.getPreferredFormType(field.getType().getSimpleName()));
+			DataAccess dataAccess = field.getAnnotation(DataAccess.class);
+			if (dataAccess != null) {
+				column.setAccessAdd(dataAccess.add());
+				column.setAccessUpdate(dataAccess.update());
+				column.setAccessList(dataAccess.list());
+				column.setAccessSearch(dataAccess.search());
+			}
+			column.setType(field.getType().getName());
 			sysTableColumnService.save(column);
 		}
 		return renderSuccess();

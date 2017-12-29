@@ -10,50 +10,47 @@ import org.misalen.db.jpa.base.domain.BaseDomain;
 @Entity
 @Table
 public class SysConversion extends BaseDomain {
-	@ModelComment("汉字")
+	@ModelComment("原始")
 	@Column(length = 255, nullable = false, unique = true)
-	private String chinese;
+	private String original;
 
-	@ModelComment("汉语拼音")
-	@Column(length = 255, nullable = false, unique = true)
-	private String pinyin;
+	@ModelComment("转义")
+	@Column(name="ESCAPE_", length = 255, nullable = false, unique = true)
+	private String escape;
 
-	/**
-	 * 获取chinese
-	 * 
-	 * @return chinese chinese
+	/**  
+	 * 获取original  
+	 * @return original original  
 	 */
-	public String getChinese() {
-		return chinese;
+	public String getOriginal() {
+		return original;
 	}
+	
 
-	/**
-	 * 设置chinese
-	 * 
-	 * @param chinese
-	 *            chinese
+	/**  
+	 * 设置original  
+	 * @param original original  
 	 */
-	public void setChinese(String chinese) {
-		this.chinese = chinese;
+	public void setOriginal(String original) {
+		this.original = original;
 	}
+	
 
-	/**
-	 * 获取pinyin
-	 * 
-	 * @return pinyin pinyin
+	/**  
+	 * 获取escape  
+	 * @return escape escape  
 	 */
-	public String getPinyin() {
-		return pinyin;
+	public String getEscape() {
+		return escape;
 	}
+	
 
-	/**
-	 * 设置pinyin
-	 * 
-	 * @param pinyin
-	 *            pinyin
+	/**  
+	 * 设置escape  
+	 * @param escape escape  
 	 */
-	public void setPinyin(String pinyin) {
-		this.pinyin = pinyin;
+	public void setEscape(String escape) {
+		this.escape = escape;
 	}
 
 }

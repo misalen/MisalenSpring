@@ -23,11 +23,11 @@ public class PageFrom<T> {
 	private Integer rows = 10;
 	@ModelComment(value = "总数")
 	private Long total = -1l;
-	@ModelComment(value = "倒叙字段(未使用)")
+	@ModelComment(value = "倒叙字段")
 	private LinkedList<String> desc;
-	@ModelComment(value = "正序字段(未使用)")
+	@ModelComment(value = "正序字段")
 	private LinkedList<String> asc;
-	@ModelComment(value = "检索(未使用)")
+	@ModelComment(value = "检索")
 	private List<Retrieval> retrievals;
 
 	/**

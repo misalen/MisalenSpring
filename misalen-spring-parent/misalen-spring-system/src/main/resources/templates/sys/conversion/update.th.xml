@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<thlogic>
+	<attr sel="#form" th:action="@{/sys/conversion/update}">
+	</attr>
+	<attr sel="#primaryKey" th:value="${model.primaryKey}">
+	</attr>
+	<attr sel="#original" th:value="${model.original}">
+	</attr>
+	<attr sel="#escape" th:value="${model.escape}">
+	</attr>
+</thlogic>

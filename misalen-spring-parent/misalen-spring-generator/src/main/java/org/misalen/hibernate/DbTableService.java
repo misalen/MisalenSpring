@@ -6,11 +6,12 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.misalen.common.utils.TextUtil;
 import org.misalen.generator.domain.SysTableColumn;
 import org.misalen.generator.domain.SysTableInfo;
 import org.misalen.hibernate.cfg.reveng.dialect.MetaDataDialect;
 import org.misalen.hibernate.cfg.reveng.dialect.MySQLMetaDataDialect;
-import org.misalen.hibernate.tool.util.JDBCToHibernateTypeHelper;
+import org.misalen.hibernate.tool.util.JDBCToJavaTypeHelper;
 
 public class DbTableService {
 	String dbUrl;
@@ -49,15 +50,21 @@ public class DbTableService {
 		while (it.hasNext()) {
 			Map<String, Object> entry = it.next();
 			SysTableColumn dbColumn = new SysTableColumn();
-			dbColumn.setRemarks(String.valueOf(entry.get("REMARKS")));
+			String remarks=String.valueOf(entry.get("REMARKS"));
+			if(TextUtil.isNullOrEmpty(remarks)){
+				remarks=String.valueOf(entry.get("COLUMN_NAME"));
+			}
+			dbColumn.setRemarks(remarks);
 			dbColumn.setName(String.valueOf(entry.get("COLUMN_NAME")));
 			dbColumn.setNullable(String.valueOf(entry.get("NULLABLE")).equals("0"));
 			dbColumn.setLength(Integer.valueOf(String.valueOf(entry.get("COLUMN_SIZE"))));
 			dbColumn.setScale(Integer.valueOf(String.valueOf(entry.get("DECIMAL_DIGITS"))));
-			dbColumn.setType(JDBCToHibernateTypeHelper.getPreferredHibernateType(
+			dbColumn.setType(JDBCToJavaTypeHelper.getPreferredHibernateType(
 					Integer.valueOf(String.valueOf(entry.get("DATA_TYPE"))), dbColumn.getLength(), dbColumn.getLength(),
 					Integer.valueOf(String.valueOf(entry.get("DECIMAL_DIGITS"))), dbColumn.getNullable(), false));
-			columns.add(dbColumn);
+			if (!dbColumn.getName().equals("PRIMARY_KEY") && !dbColumn.getName().equals("ADD_TIME")) {
+				columns.add(dbColumn);
+			}
 		}
 		dataDialect.close();
 		return columns;

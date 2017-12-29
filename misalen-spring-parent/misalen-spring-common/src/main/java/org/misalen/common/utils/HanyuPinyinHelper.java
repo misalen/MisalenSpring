@@ -11,8 +11,9 @@ public class HanyuPinyinHelper {
 	/**
 	 * 这段代码 是我费死老劲写出来,请珍惜
 	 */
-	public static String toHanyuPinyin(String ChineseLanguage) {
-		char[] cl_chars = ChineseLanguage.trim().toCharArray();
+	public static String toHanyuPinyin(String chineseLanguage) {
+		chineseLanguage = chineseLanguage.replaceAll("[\\pP\\pS\\pZ]", "");
+		char[] cl_chars = chineseLanguage.trim().toCharArray();
 		StringBuffer hanyupinyin = new StringBuffer();
 		HanyuPinyinOutputFormat defaultFormat = new HanyuPinyinOutputFormat();
 		defaultFormat.setCaseType(HanyuPinyinCaseType.LOWERCASE);// 输出拼音全部小写
@@ -115,6 +116,6 @@ public class HanyuPinyinHelper {
 	}
 
 	public static void main(String[] args) {
-		System.out.println(HanyuPinyinHelper.toHanyuPinyin("朝adc123.*"));
+		System.out.println(HanyuPinyinHelper.toHanyuPinyin("名称,模板生成用到"));
 	}
 }

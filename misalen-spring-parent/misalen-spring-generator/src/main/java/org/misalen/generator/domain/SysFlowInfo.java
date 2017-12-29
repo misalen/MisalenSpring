@@ -3,7 +3,6 @@ package org.misalen.generator.domain;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-
 import org.misalen.common.annotations.ModelComment;
 import org.misalen.db.jpa.base.domain.BaseDomain;
 

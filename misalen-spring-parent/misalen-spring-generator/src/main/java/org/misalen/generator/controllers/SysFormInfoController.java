@@ -1,9 +1,11 @@
 package org.misalen.generator.controllers;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import org.misalen.common.advice.structure.RestResult;
 import org.misalen.common.annotations.SerializedField;
@@ -17,7 +19,8 @@ import org.misalen.generator.service.SysFormFieldService;
 import org.misalen.generator.service.SysFormInfoService;
 import org.misalen.generator.service.SysTableColumnService;
 import org.misalen.generator.service.SysTableInfoService;
-import org.misalen.hibernate.tool.util.FormTypToJavaHelper;
+import org.misalen.hibernate.tool.util.FormTypeToJavaHelper;
+import org.misalen.hibernate.tool.util.JavaToFormTypeHelper;
 import org.misalen.hibernate.tool.util.Named;
 import org.misalen.system.controllers.BaseController;
 import org.misalen.system.domain.SysResources;
@@ -130,15 +133,21 @@ public class SysFormInfoController extends BaseController {
 		sysFormInfo.setPrimaryKey(null);
 		sysFormInfoService.save(sysFormInfo);
 		SysTableInfo sysTableInfo = sysTableInfoService.get(tableId);
+		int i = 0;
 		for (SysTableColumn column : sysTableInfo.getSysTableColumns()) {
 			SysFormField field = new SysFormField();
+			field.setIndex(++i);
 			field.setFormId(sysFormInfo.getPrimaryKey());
 			field.setTitle(column.getRemarks());
 			field.setType(column.getType());
 			field.setMandatory(column.getNullable());
 			field.setDecimals(column.getScale());
 			field.setLength(column.getLength());
-			field.setElementId(column.getType());
+			field.setElementId(JavaToFormTypeHelper.getPreferredFormType(column.getType()));
+			if (field.getElementId().equals("code")) {
+				field.setDtcode("yesorno");
+			}
+
 			sysFormFieldService.save(field);
 		}
 		return jumpSuccess();
@@ -164,12 +173,13 @@ public class SysFormInfoController extends BaseController {
 	) throws Exception {
 		SysFormInfo model = sysFormInfoService.get(formInfo.getPrimaryKey());
 		for (SysFormField sysFormField : model.getSysFormFields()) {
-			sysFormField.setNamed(new Named(sysConversionService.findByChinese(sysFormField.getTitle()).getPinyin()));
-			sysFormField.setJavaType(FormTypToJavaHelper.getPreferredFormType(sysFormField.getType()));
+			sysFormField.setNamed(new Named(sysConversionService.findByOriginal(sysFormField.getTitle()).getEscape()));
+			sysFormField.setJavaType(FormTypeToJavaHelper.getPreferredFormType(sysFormField.getElementId(),
+					sysFormField.getDecimals(), sysFormField.getDtcode()));
 		}
 		formInfo.setSysFormFields(model.getSysFormFields());
-		String moduleName = sysConversionService.findByChinese(formInfo.getModuleName()).getPinyin().toLowerCase();
-		String functionName = sysConversionService.findByChinese(formInfo.getFunctionName()).getPinyin().toLowerCase();
+		String moduleName = sysConversionService.findByOriginal(formInfo.getModuleName()).getEscape().toLowerCase();
+		String functionName = sysConversionService.findByOriginal(formInfo.getFunctionName()).getEscape().toLowerCase();
 		StringBuffer buffer = new StringBuffer();
 		buffer.append("org.misalen.");
 		buffer.append(moduleName);
@@ -177,7 +187,6 @@ public class SysFormInfoController extends BaseController {
 		buffer.append(functionName);
 		String packageName = buffer.toString();
 		String path = "/" + moduleName + "/" + functionName;
-		addMenu(formInfo,moduleName, functionName, path);
 		for (String string : generatorKeys) {
 			switch (string) {
 			case "model":
@@ -216,6 +225,7 @@ public class SysFormInfoController extends BaseController {
 				pageListGenerator.setProjectName(projectName);
 				pageListGenerator.setTemplateName("page-list.ftl");
 				pageListGenerator.save();
+				addMenu(formInfo, moduleName, functionName, path);
 				break;
 			case "view-add":
 				PageAddGenerator pageAddGenerator = new PageAddGenerator()//
@@ -250,7 +260,8 @@ public class SysFormInfoController extends BaseController {
 			parent.setSeq(0);
 			sysResourcesService.save(parent);
 		}
-		SysResources resources = sysResourcesService.findByTextAndParentId(formInfo.getFunctionName(), parent.getPrimaryKey());
+		SysResources resources = sysResourcesService.findByTextAndParentId(formInfo.getFunctionName(),
+				parent.getPrimaryKey());
 		if (resources == null) {
 			resources = new SysResources();
 			resources.setParentId(parent.getPrimaryKey());
@@ -258,23 +269,23 @@ public class SysFormInfoController extends BaseController {
 			resources.setText(formInfo.getFunctionName());
 			resources.setUsingState("available");
 			resources.setSeq(0);
-			resources.setResourceUrl(path);
+			resources.setResourceUrl(path+"/");
 			sysResourcesService.save(resources);
 		}
 
 	}
 
 	private String[] getProjectName(File directory) {
-		// final String fileName = "misalen-spring-.*";
-		// String[] list = directory.list(new FilenameFilter() {
-		// private Pattern pattern = Pattern.compile(fileName);
-		//
-		// @Override
-		// public boolean accept(File dir, String name) {
-		// return pattern.matcher(name).matches();
-		// }
-		// });
-		return new String[] { new File(new File("").getAbsolutePath()).getName() };
+		final String fileName = "misalen-spring-.*";
+		String[] list = directory.list(new FilenameFilter() {
+			private Pattern pattern = Pattern.compile(fileName);
+
+			@Override
+			public boolean accept(File dir, String name) {
+				return pattern.matcher(name).matches();
+			}
+		});
+		return list;
 
 	}
 }

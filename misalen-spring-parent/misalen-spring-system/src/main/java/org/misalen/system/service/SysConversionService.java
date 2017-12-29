@@ -19,15 +19,15 @@ public class SysConversionService extends CustomService<SysConversion, String> {
 	@Autowired
 	public SysConversionRepository sysConversionRepository;
 
-	public SysConversion findByChinese(String chinese) {
-		SysConversion conversion = sysConversionRepository.findByChinese(chinese);
+	public SysConversion findByOriginal(String original) {
+		SysConversion conversion = sysConversionRepository.findByOriginal(original);
 		if (conversion == null) {
-			String pinyin = HanyuPinyinHelper.toHanyuPinyin(chinese);
-			Long countByPnyin = sysConversionRepository.countByPinyinLike(pinyin + "%");
+			String pinyin = HanyuPinyinHelper.toHanyuPinyin(original);
+			Long countByPnyin = sysConversionRepository.countByEscapeLike(pinyin + "%");
 			conversion = new SysConversion();
 			conversion.setAddTime(new Date());
-			conversion.setChinese(chinese);
-			conversion.setPinyin(pinyin + (countByPnyin == 0 ? "" : countByPnyin));
+			conversion.setOriginal(original);
+			conversion.setEscape(pinyin + (countByPnyin == 0 ? "" : countByPnyin));
 			sysConversionRepository.save(conversion);
 		}
 		return conversion;

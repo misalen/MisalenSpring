@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:dt="http://thymeleafexamples">
+<head
+	th:replace="common/head :: common_header(~{::title},~{::script},~{::link})">
+<meta charset="utf-8" />
+<title>列表</title>
+<script type="text/javascript"
+	th:src="@{/plugins/common/js/list-constant.js}"></script>
+<script type="text/javascript" th:inline="javascript">
+	$(function() {
+		initSubTable();
+	});
+	var baseUrl= [[@{/sys/conversion/}]];
+	function addEntry(){
+		var index = layer.open({
+			type : 2,
+			title : '添加',
+			shadeClose : true,
+			end:function(){
+				$('#tb_list').bootstrapTable('refresh');
+			},
+			shade : 0.8,
+			area : [ '650px', '80%' ],
+			content :baseUrl+"add"
+		});
+	}
+	function initSubTable() {
+		$("#tb_list").bootstrapTable(new MyTable(baseUrl,[
+		{
+			field: 'original',
+			title: '原始'
+		},
+		{
+			field: 'escape',
+			title: '转义'
+		},
+		{
+			field : 'addTime',
+			title : '添加时间',
+			formatter : function(value, row, index) {
+				return format(new Date(value), 'yyyy-MM-dd hh:mm:ss');
+			}
+		}
+		]).params());
+	}
+</script>
+</head>
+<body>
+	<div id="toolbar">
+		<div class="pull-right">
+			<button class="btn btn-sm btn-warning" onclick="addEntry()">
+				<i class=" glyphicon glyphicon-plus"></i> 添加
+			</button>
+		</div>
+	</div>
+	<div class="box box-primary">
+		<div class="box-body">
+			<table id="tb_list"></table>
+		</div>
+	</div>
+</body>
+</html>

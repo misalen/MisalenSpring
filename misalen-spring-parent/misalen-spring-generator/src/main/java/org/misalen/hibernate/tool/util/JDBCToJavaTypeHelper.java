@@ -18,9 +18,9 @@ import org.hibernate.MappingException;
  * @author max (based on parts from Sql2Java from Middlegen)
  *
  */
-public final class JDBCToHibernateTypeHelper {
+public final class JDBCToJavaTypeHelper {
    
-	private JDBCToHibernateTypeHelper() {
+	private JDBCToJavaTypeHelper() {
 		
 	}
 	
@@ -35,20 +35,20 @@ public final class JDBCToHibernateTypeHelper {
       PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.REAL), new String[] { "float", Float.class.getName()} );
       PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.FLOAT), new String[] { "double", Double.class.getName()} );
       PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.DOUBLE), new String[] { "double", Double.class.getName()});
-      PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.DECIMAL), new String[] { "java.lang.BigDecimal", BigDecimal.class.getName() });
-      PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.NUMERIC), new String[] { "java.lang.BigDecimal", BigDecimal.class.getName() });
+      PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.DECIMAL), new String[] { BigDecimal.class.getName(), BigDecimal.class.getName() });
+      PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.NUMERIC), new String[] { BigDecimal.class.getName(), BigDecimal.class.getName() });
       PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.BIT), new String[] { "boolean", Boolean.class.getName()});
       PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.BOOLEAN), new String[] { "boolean", Boolean.class.getName()});
       PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.CHAR), new String[] { "char", Character.class.getName()});
-      PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.VARCHAR), new String[] { "java.lang.String", String.class.getName() });
-      PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.LONGVARCHAR), new String[] { "java.lang.String",String.class.getName() });
+      PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.VARCHAR), new String[] { String.class.getName(), String.class.getName() });
+      PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.LONGVARCHAR), new String[] { String.class.getName(),String.class.getName() });
       PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.BINARY), new String[] { "byte[]", Byte[].class.getName() });
       PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.VARBINARY), new String[] { "byte[]", Byte[].class.getName() });
       PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.LONGVARBINARY), new String[] { "byte[]", Byte[].class.getName() });
-      PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.DATE), new String[] { "java.lang.Date", Date.class.getName() });
-      PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.TIME), new String[] { "java.lang.Date", Date.class.getName() });
-      PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.TIMESTAMP), new String[] { "java.lang.Date", Date.class.getName() });
-      PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.CLOB), new String[] { "java.lang.String", String.class.getName() });
+      PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.DATE), new String[] { Date.class.getName(), Date.class.getName() });
+      PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.TIME), new String[] { Date.class.getName(), Date.class.getName() });
+      PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.TIMESTAMP), new String[] { Date.class.getName(), Date.class.getName() });
+      PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.CLOB), new String[] { String.class.getName(), String.class.getName() });
       PREFERRED_HIBERNATETYPE_FOR_SQLTYPE.put(new Integer(Types.BLOB), new String[] { "byte[]",  Byte[].class.getName() });
 	  
 	  //Hibernate does not have any built-in Type for these:

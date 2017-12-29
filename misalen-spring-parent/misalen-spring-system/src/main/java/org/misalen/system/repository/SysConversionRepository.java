@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SysConversionRepository extends BaseRepository<SysConversion, String> {
 
-	SysConversion findByChinese(String chinese);
+	SysConversion findByOriginal(String original);
 	
-	Long countByPinyinLike(String pinyin);
+	Long countByEscapeLike(String escape);
 }

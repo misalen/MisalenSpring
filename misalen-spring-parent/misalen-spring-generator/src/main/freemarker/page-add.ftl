@@ -14,6 +14,7 @@ $(function() {
         },
         fields: {
         	<#list list as item>
+        	<#if item.accessAdd>
         	<#if item.mandatory>
         	${item.named.lowerCaseFirstName}: {
                 validators: {
@@ -22,6 +23,7 @@ $(function() {
                     }
                 }
             },
+            </#if>
             </#if>
             </#list>
         }
@@ -35,6 +37,7 @@ $(function() {
 		<div class="box-body">
 			<form id="form" method="post" role="form">
 							<#list list as item>
+							<#if item.accessAdd>
 							<#if item.elementId=='date'>
 							<div class="form-group">
 								<label for="${item.named.lowerCaseFirstName}">${item.title}</label>
@@ -80,6 +83,7 @@ $(function() {
 								<label for="${item.named.lowerCaseFirstName}">${item.title}</label>
 								<input id="${item.named.lowerCaseFirstName}" name="${item.named.lowerCaseFirstName}" type="text" class="form-control" >
 							</div>
+							</#if>
 							</#if>
            					</#list>
 				<div class="form-group">

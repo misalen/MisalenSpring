@@ -13,6 +13,7 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.misalen.common.annotations.ModelComment;
+import org.misalen.common.annotations.DataAccess;
 import org.misalen.db.jpa.base.domain.BaseDomain;
 
 /**
@@ -27,6 +28,7 @@ public class ${name.upperCaseFirstName} extends BaseDomain {
 <#list sysFormInfo.sysFormFields as field>
 
 	@ModelComment("${field.title}")
+	@DataAccess(add = ${field.accessAdd?string('true', 'false')}, list = ${field.accessList?string('true', 'false')}, update = ${field.accessUpdate?string('true', 'false')}, search = ${field.accessSearch?string('true', 'false')})
 	@Column(nullable = ${field.mandatory?string('false', 'true')})
 	private ${field.javaType} ${field.named.lowerCaseFirstName};
 	

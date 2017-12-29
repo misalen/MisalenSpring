@@ -16,9 +16,11 @@ import java.lang.annotation.Target;
 public @interface DataAccess {
 
 	boolean add() default true;
-	
+
 	boolean update() default true;
 
 	boolean list() default true;
-	
+
+	boolean search() default false;
+
 }
