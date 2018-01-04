@@ -15,6 +15,11 @@
 	<dependencies>
 		<dependency>
 			<groupId>misalen-spring</groupId>
+			<artifactId>misalen-spring-cas-client</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>misalen-spring</groupId>
 			<artifactId>misalen-spring-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>

@@ -56,9 +56,7 @@ public class HomeController extends BaseController {
 	@GetMapping("/logout")
 	public String logout() {
 		Subject subject = SecurityUtils.getSubject();
-		if (subject.isAuthenticated()) {
-			subject.logout();
-		}
+		subject.logout();
 		return "login";
 	}
 

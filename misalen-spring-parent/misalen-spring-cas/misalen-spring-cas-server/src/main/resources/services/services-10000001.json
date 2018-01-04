@@ -1,0 +1,8 @@
+{
+  "@class": "org.apereo.cas.services.RegexRegisteredService",
+  "serviceId": "^(https|http|imaps)://.*",
+  "name": "Local Services",
+  "id": 10000001,
+  "description": "所有服务都能访问",
+  "evaluationOrder": 0
+}

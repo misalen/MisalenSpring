@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>misalen-spring</groupId>
 	<artifactId>misalen-spring-parent</artifactId>
@@ -25,8 +26,9 @@
 		<module>misalen-spring-generator</module>
 		<module>misalen-spring-workflow</module>
 		<module>misalen-spring-integration</module>
-    <module>misalen-spring-data-interchange</module>
-  </modules>
+		<module>misalen-spring-data-interchange</module>
+		<module>misalen-spring-cas</module>
+	</modules>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -36,41 +38,31 @@
 			<scope>import</scope>
 		</dependency>
 	</dependencies>
+
 	<repositories>
 		<repository>
-			<id>spring-snapshots</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
-			<snapshots>
+			<releases>
 				<enabled>true</enabled>
-			</snapshots>
+			</releases>
+			<id>maven2-release</id>
+			<url>http://uk.maven.org/maven2/</url>
 		</repository>
 		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
-
-	<pluginRepositories>
-		<pluginRepository>
-			<id>spring-snapshots</id>
-			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
 			<snapshots>
 				<enabled>true</enabled>
+				<updatePolicy>interval:120</updatePolicy>
 			</snapshots>
-		</pluginRepository>
+			<id>oss-snapshots</id>
+			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+		</repository>
+	</repositories>
+	<pluginRepositories>
 		<pluginRepository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<id>maven2-release</id>
+			<url>http://uk.maven.org/maven2/</url>
 		</pluginRepository>
 	</pluginRepositories>
 	<build>
@@ -83,7 +75,7 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
-		
+
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
@@ -95,4 +87,10 @@
 		</plugins>
 		<defaultGoal>compile</defaultGoal>
 	</build>
+	<developers>
+		<developer>
+			<name>ZhaoGuochao</name>
+			<email>misalen@qq.com</email>
+		</developer>
+	</developers>
 </project>
