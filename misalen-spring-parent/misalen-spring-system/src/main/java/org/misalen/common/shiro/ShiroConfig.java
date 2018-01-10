@@ -20,8 +20,10 @@ import org.apache.shiro.web.mgt.DefaultWebSecurityManager;
 import org.apache.shiro.web.servlet.SimpleCookie;
 import org.misalen.system.service.SysRoleResourcesService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.filter.DelegatingFilterProxy;
 
 import net.sf.ehcache.CacheManager;
 
@@ -32,41 +34,35 @@ public class ShiroConfig {
 	private SysRoleResourcesService sysRoleResourcesService;
 	@Autowired
 	private ShiroRealmDb shiroRealmDb;
-
-//	@Bean
-//	public FilterRegistrationBean<DelegatingFilterProxy> delegatingFilterProxy() {
-//		FilterRegistrationBean<DelegatingFilterProxy> filterRegistrationBean = new FilterRegistrationBean<DelegatingFilterProxy>();
-//		DelegatingFilterProxy proxy = new DelegatingFilterProxy();
-//		proxy.setTargetFilterLifecycle(true);
-//		proxy.setTargetBeanName("shiroFilter");
-//		filterRegistrationBean.setFilter(proxy);
-//		return filterRegistrationBean;
-//	}
+	@Autowired
+	private ShiroAuthorizationByRole shiroAuthorizationByRole;
 
 	@Bean("shiroFilter")
-	public ShiroFilterFactoryBean shirFilter() {
+	protected ShiroFilterFactoryBean shiroFilterFactoryBean(SecurityManager securityManager) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 		// 必须设置 SecurityManager
-		shiroFilterFactoryBean.setSecurityManager(securityManager());
+		shiroFilterFactoryBean.setSecurityManager(securityManager);
 		shiroFilterFactoryBean.setLoginUrl("/login");
 		shiroFilterFactoryBean.setSuccessUrl("/home/");
 		shiroFilterFactoryBean.setUnauthorizedUrl("/result/unauth");
-		Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
-		filters.put("orRole", new ShiroAuthorizationByRole());
-		shiroFilterFactoryBean.setFilters(filters);
 		shiroFilterFactoryBean.setFilterChainDefinitionMap(loadFilterChainDefinitions());
+		Map<String, Filter> filters = shiroFilterFactoryBean.getFilters();
+		filters.put("orRole", shiroAuthorizationByRole);
+		shiroFilterFactoryBean.setFilters(filters);
 		return shiroFilterFactoryBean;
 	}
 
-	private SecurityManager securityManager() {
+	@Bean(name = "securityManager")
+	protected SecurityManager securityManager(RememberMeManager meManager, EhCacheManager ehCacheManager) {
 		DefaultWebSecurityManager securityManager = new DefaultWebSecurityManager();
 		securityManager.setRealm(shiroRealmDb);
-		securityManager.setCacheManager(ehCacheManager());
-		securityManager.setRememberMeManager(myRememberMeManager());
+		securityManager.setCacheManager(ehCacheManager);
+		securityManager.setRememberMeManager(meManager);
 		return securityManager;
 	}
 
-	private RememberMeManager myRememberMeManager() {
+	@Bean
+	protected RememberMeManager rememberMeManager() {
 		CookieRememberMeManager manager = new CookieRememberMeManager();
 		manager.setCipherKey(Base64.decode("5aaC5qKm5oqA5pyvAAAAAA=="));
 		SimpleCookie cookie = new SimpleCookie("RememberMeManager");
@@ -76,7 +72,8 @@ public class ShiroConfig {
 		return manager;
 	}
 
-	private EhCacheManager ehCacheManager() {
+	@Bean
+	protected EhCacheManager ehCacheManager() {
 		CacheManager cacheManager = CacheManager.getCacheManager("es");
 		if (cacheManager == null) {
 			try {
@@ -92,7 +89,7 @@ public class ShiroConfig {
 
 	}
 
-	public Map<String, String> loadFilterChainDefinitions() {
+	protected Map<String, String> loadFilterChainDefinitions() {
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 		filterChainDefinitionMap.put("/**/css/**", "anon");
 		filterChainDefinitionMap.put("/**/images/**", "anon");
@@ -112,5 +109,18 @@ public class ShiroConfig {
 		}
 		filterChainDefinitionMap.put("/**", "user");
 		return filterChainDefinitionMap;
+	}
+
+	@Bean
+	protected FilterRegistrationBean<DelegatingFilterProxy> delegatingFilterProxy() {
+		FilterRegistrationBean<DelegatingFilterProxy> filterRegistrationBean = new FilterRegistrationBean<DelegatingFilterProxy>();
+		DelegatingFilterProxy proxy = new DelegatingFilterProxy();
+		proxy.setTargetFilterLifecycle(true);
+		proxy.setTargetBeanName("shiroFilter");
+		filterRegistrationBean.setFilter(proxy);
+		filterRegistrationBean.addInitParameter("targetFilterLifecycle", "true");
+		filterRegistrationBean.setEnabled(true);
+		filterRegistrationBean.addUrlPatterns("/*");
+		return filterRegistrationBean;
 	}
 }

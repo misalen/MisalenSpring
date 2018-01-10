@@ -15,7 +15,7 @@
 		<mysql.version>5.1.43</mysql.version>
 		<druid.version>1.1.3</druid.version>
 		<activiti.version>7-201710-EA</activiti.version>
-		<spring.shiro.version>1.3.2</spring.shiro.version>
+		<spring.shiro.version>1.4.0</spring.shiro.version>
 	</properties>
 	<modules>
 		<module>misalen-spring-common</module>
