@@ -1,4 +1,4 @@
-package org.misalen.config;
+package org.misalen.config.server;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,9 +6,9 @@ import org.springframework.cloud.config.server.EnableConfigServer;
 
 @EnableConfigServer
 @SpringBootApplication
-public class MMBConfigServerApplication {
+public class ConfigServerApplication {
 	public static void main(String[] args) {
 		
-		SpringApplication.run(MMBConfigServerApplication.class, args);
+		SpringApplication.run(ConfigServerApplication.class, args);
 	}
 }
