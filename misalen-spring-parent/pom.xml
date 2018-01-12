@@ -23,11 +23,9 @@
 		<module>misalen-spring-core</module>
 		<module>misalen-spring-db-jpa</module>
 		<module>misalen-spring-system</module>
-		<module>misalen-spring-db-mybatis</module>
 		<module>misalen-spring-generator</module>
 		<module>misalen-spring-workflow</module>
 		<module>misalen-spring-integration</module>
-		<module>misalen-spring-data-interchange</module>
 		<module>misalen-spring-cas</module>
 		<module>misalen-spring-config</module>
 	</modules>
@@ -56,6 +54,22 @@
 			</snapshots>
 			<id>oss-snapshots</id>
 			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+		</repository>
+		<repository>
+			<id>spring-snapshots</id>
+			<name>Spring Snapshots</name>
+			<url>https://repo.spring.io/snapshot</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>https://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
 		</repository>
 	</repositories>
 	<pluginRepositories>
