@@ -1,13 +1,14 @@
 <?xml version="1.0"?>
 <thlogic>
+
 	<attr sel="#nickname" th:text="${nickname}"></attr>
 	<attr sel="#userTree" th:remove="all-but-first">
 		<attr sel="#userTreeLi0" th:each="menu1 : ${userTree}">
-			<attr sel="#userTreeA0" th:attr="data-url=${menu1.resourceUrl},data-text=${menu1.text}"   th:text="${menu1.text}" />
+			<attr sel="#userTreeA0" th:attr="data-url=${menu1.resourceUrl}" th:text="${menu1.text}" />
 			<attr sel="#userTreeDl0" th:if="${#lists.size(menu1.children)>0}"
 				th:remove="all-but-first" />
 			<attr sel="#userTreeDD0" th:each="menu2 : ${menu1.children}">
-				<attr sel="#userTreeA1"  th:attr="data-url=${menu2.resourceUrl},data-text=${menu2.text}" th:text="${menu2.text}" />
+				<attr sel="#userTreeA1"  th:attr="data-url=${menu2.resourceUrl}" th:text="${menu2.text}" />
 			</attr>
 		</attr>
 	</attr>

@@ -1,85 +1,294 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
 <meta charset="utf-8">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>后台管理</title>
-<link rel="icon" type="image/x-icon" th:href="@{/images/favicon.ico}">
-<link rel="stylesheet" th:href="@{/plugins/layui/css/layui.css}">
-<script type="text/javascript"
-	th:src="@{/webjars/jquery/3.2.1/jquery.js}"></script>
-</head>
-<body>
-	<div class="layui-layout layui-layout-admin" data-anim="layui-anim-up">
-		<div class="layui-header">
-			<div class="layui-logo">xxxx 后台管理</div>
-			<ul class="layui-nav layui-layout-right">
-				<li class="layui-nav-item"><a href="javascript:;"> <img
-						src="http://t.cn/RCzsdCq" class="layui-nav-img"><span
-						id="nickname"> 贤心 </span></a>
-					<dl class="layui-nav-child">
-						<dd>
-							<a th:href="@{/logout}">退了</a>
-						</dd>
-					</dl></li>
-			</ul>
-		</div>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>用户权限管理系统</title>
 
-		<div class="layui-side layui-bg-black">
-			<div class="layui-side-scroll">
-				<ul id="userTree" class="layui-nav layui-nav-tree" lay-filter="test">
-					<li id="userTreeLi0" class="layui-nav-item"><a
-						href="javascript:;"><i id="userTreeI0" class="layui-icon">&#xe643;</i>&nbsp;<span
-							id="userTreeA0">所有商品</span></a>
-						<dl id="userTreeDl0" class="layui-nav-child">
-							<dd id="userTreeDD0">
-								<a href="javascript:;"> <i id="userTreeI1"
-									class="layui-icon">&#xe63f;</i> &nbsp;<span id="userTreeA1">所有商品</span>
-								</a>
-							</dd>
-						</dl></li>
-					<li class="layui-nav-item"><a href="javascript:;">解决方案</a>
-						<dl class="layui-nav-child">
-							<dd>
-								<a href="javascript:;">列表一</a>
-							</dd>
-							<dd>
-								<a href="javascript:;">列表二</a>
-							</dd>
-							<dd>
-								<a href="">超链接</a>
-							</dd>
-						</dl></li>
+<link th:href="@{/home/plugins/fullPage/jquery.fullPage.css}"
+	rel="stylesheet" />
+<link th:href="@{/home/plugins/bootstrap-3.3.0/css/bootstrap.min.css}"
+	rel="stylesheet" />
+<link
+	th:href="@{/home/plugins/material-design-iconic-font-2.2.0/css/material-design-iconic-font.min.css}"
+	rel="stylesheet" />
+<link th:href="@{/home/plugins/waves-0.7.5/waves.min.css}"
+	rel="stylesheet" />
+<link
+	th:href="@{/home/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css}"
+	rel="stylesheet" />
+<link th:href="@{/home/css/admin.css}" rel="stylesheet" />
+<style>
+/** skins **/
+.legend {
+	width: 16px;
+	height: 16px;
+	display: block;
+	float: left;
+}
+
+.green {
+	background: #29A176;
+}
+
+#green #header {
+	background: #29A176;
+}
+
+#green .content_tab {
+	background: #29A176;
+}
+
+#green .s-profile>a {
+	background: url(images/theme-green.png) left top no-repeat;
+}
+
+.deep-blue {
+	background: #455EC5;
+}
+
+#deep-blue #header {
+	background: #455EC5;
+}
+
+#deep-blue .content_tab {
+	background: #455EC5;
+}
+
+#deep-blue .s-profile>a {
+	background: url(images/theme-deep-blue.png) left top no-repeat;
+}
+
+.red {
+	background: #F06292;
+}
+
+#red #header {
+	background: #F06292;
+}
+
+#red .content_tab {
+	background: #F06292;
+}
+
+#red .s-profile>a {
+	background: url(images/theme-red.png) left top no-repeat;
+}
+
+.purple {
+	background: #6539B4;
+}
+
+#purple #header {
+	background: #6539B4;
+}
+
+#purple .content_tab {
+	background: #6539B4;
+}
+
+#purple .s-profile>a {
+	background: url(images/theme-purple.png) left top no-repeat;
+}
+
+.light-blue {
+	background: #0B8DE5;
+}
+
+#light-blue #header {
+	background: #0B8DE5;
+}
+
+#light-blue .content_tab {
+	background: #0B8DE5;
+}
+
+#light-blue .s-profile>a {
+	background: url(images/theme-light-blue.png) left top no-repeat;
+}
+
+#test #header {
+	background: test;
+}
+
+#test .content_tab {
+	background: test;
+}
+
+#test .s-profile>a {
+	background: url(test) left top no-repeat;
+}
+</style>
+</head>
+
+<body id="green">
+	<header id="header">
+		<ul id="menu">
+			<li id="guide" class="line-trigger">
+				<div class="line-wrap">
+					<div class="line top"></div>
+					<div class="line center"></div>
+					<div class="line bottom"></div>
+				</div>
+			</li>
+			<li id="logo" class="hidden-xs"><a href="index.html"> <img
+					src="images/logo.png" />
+			</a> <span id="system_title">权限管理系统</span></li>
+			<li class="pull-right">
+				<ul class="hi-menu">
+					<li class="dropdown" style="display: none;"><a
+						class="waves-effect waves-light" data-toggle="dropdown"
+						href="javascript:;"> <i class="him-icon zmdi zmdi-dropbox"></i>
+					</a>
+						<ul class="dropdown-menu dm-icon pull-right">
+							<li class="skin-switch">请选择系统切换</li>
+							<li class="divider"></li>
+							<li><a class="waves-effect switch-systems" data-system=""
+								href="javascript:;"><i class="zmdi zmdi-shield-security"></i>
+									权限管理系统</a></li>
+
+							<li><a class="waves-effect switch-systems" data-system=""
+								href="javascript:;"><i class="zmdi zmdi-wikipedia"></i>
+									内容管理系统</a></li>
+
+							<li><a class="waves-effect switch-systems" data-system=""
+								href="javascript:;"><i class="zmdi zmdi-paypal-alt"></i>
+									支付管理系统</a></li>
+						</ul></li>
+					<li class="dropdown"><a class="waves-effect waves-light"
+						data-toggle="dropdown" href="javascript:;"> <i
+							class="him-icon zmdi zmdi-dropbox"></i>
+					</a>
+						<ul class="dropdown-menu dm-icon pull-right">
+							<li class="skin-switch">请选择主题切换</li>
+							<li class="divider"></li>
+							<li><a class="waves-effect switch-theme" href="javascript:;"
+								data-theme="green"><i class="green legend"></i>&nbsp庭中新绿色逾深</a>
+							</li>
+
+							<li><a class="waves-effect switch-theme" href="javascript:;"
+								data-theme="deep-blue"><i class="deep-blue legend"></i>&nbsp;曾经沧海难为水</a>
+							</li>
+
+							<li><a class="waves-effect switch-theme" href="javascript:;"
+								data-theme="red"><i class="red legend"></i>&nbsp;映日荷花别样红</a></li>
+
+							<li><a class="waves-effect switch-theme" href="javascript:;"
+								data-theme="purple"><i class="purple legend"></i>&nbsp;塞上燕脂凝夜紫</a>
+							</li>
+
+							<li><a class="waves-effect switch-theme" href="javascript:;"
+								data-theme="light-blue"><i class="light-blue legend"></i>&nbsp;白云飞动蔚蓝天</a>
+							</li>
+						</ul></li>
+					<li class="dropdown"><a class="waves-effect waves-light"
+						data-toggle="dropdown" href="javascript:;"> <i
+							class="him-icon zmdi zmdi-more-vert"></i>
+					</a>
+						<ul class="dropdown-menu dm-icon pull-right">
+							<li class="hidden-xs"><a class="waves-effect"
+								data-ma-action="fullscreen" href="javascript:fullPage();"><i
+									class="zmdi zmdi-fullscreen"></i> 全屏模式</a></li>
+							<li><a class="waves-effect"
+								data-ma-action="clear-localstorage" href="javascript:;"><i
+									class="zmdi zmdi-delete"></i> 清除缓存</a></li>
+							<li><a class="waves-effect" href="javascript:;"><i
+									class="zmdi zmdi-face"></i> 隐私管理</a></li>
+							<li><a class="waves-effect" href="javascript:;"><i
+									class="zmdi zmdi-settings"></i> 系统设置</a></li>
+							<li><a class="waves-effect" th:href="@{/logout}"><i
+									class="zmdi zmdi-run"></i> 退出登录</a></li>
+						</ul></li>
+				</ul>
+			</li>
+		</ul>
+	</header>
+	<section id="main">
+		<!-- 左侧导航区 -->
+		<aside id="sidebar">
+			<!-- 个人资料区 -->
+			<div class="s-profile">
+				<a class="waves-effect waves-light" href="javascript:;">
+					<div class="sp-pic">
+						<img src="images/avatar.jpg" />
+					</div>
+					<div class="sp-info">
+						<span id="nickname">张恕征</span>，您好！ <i class="zmdi zmdi-caret-down"></i>
+					</div>
+				</a>
+				<ul class="main-menu">
+					<li><a class="waves-effect" href="javascript:;"><i
+							class="zmdi zmdi-account"></i> 个人资料</a></li>
+					<li><a class="waves-effect" href="javascript:;"><i
+							class="zmdi zmdi-face"></i> 隐私管理</a></li>
+					<li><a class="waves-effect" href="javascript:;"><i
+							class="zmdi zmdi-settings"></i> 系统设置</a></li>
+					<li><a class="waves-effect" th:href="@{/logout}"><i
+							class="zmdi zmdi-run"></i> 退出登录</a></li>
 				</ul>
 			</div>
-		</div>
-
-		<div class="layui-body">
-			<iframe id="main" runat="server" src="" width="100%" height="99%"
-				frameborder="no" border="0" marginwidth="0" marginheight="0"
-				allowtransparency="yes"></iframe>
-		</div>
-
-		<div class="layui-footer">
-			<!-- 底部固定区域 -->
-			© xxxx.com - xxxx科技有限公司
-		</div>
-	</div>
+			<!-- /个人资料区 -->
+			<!-- 菜单区 -->
+			<ul class="main-menu" id="userTree">
+				<li id="userTreeLi0" class="sub-menu system_menus system_1 0">
+					<a class="waves-effect" href="javascript:;"><i
+						class="zmdi zmdi-accounts-list"></i><span id="userTreeA0">系统组织管理</span></a>
+					<ul id="userTreeDl0">
+						<li id="userTreeDD0"><a id="userTreeA1" class="waves-effect"
+							href="javascript:;">系统管理</a></li>
+					</ul>
+				</li>
+				<li>
+					<div class="upms-version">&copy; Misalen-Spring v1.0.0</div>
+				</li>
+			</ul>
+			<!-- /菜单区 -->
+		</aside>
+		<!-- /左侧导航区 -->
+		<section id="content">
+			<div class="content_tab">
+				<div class="tab_left">
+					<a class="waves-effect waves-light" href="javascript:;"><i
+						class="zmdi zmdi-chevron-left"></i></a>
+				</div>
+				<div class="tab_right">
+					<a class="waves-effect waves-light" href="javascript:;"><i
+						class="zmdi zmdi-chevron-right"></i></a>
+				</div>
+				<ul id="tabs" class="tabs">
+					<li id="tab_home" data-index="home" data-closeable="false"
+						class="cur"><a class="waves-effect waves-light">首页</a></li>
+				</ul>
+			</div>
+			<div class="content_main"></div>
+		</section>
+	</section>
+	<footer id="footer"></footer>
+	<script th:src="@{/home/plugins/jquery.1.12.4.min.js}"></script>
+	<script th:src="@{/home/plugins/bootstrap-3.3.0/js/bootstrap.min.js}"></script>
+	<script th:src="@{/home/plugins/waves-0.7.5/waves.min.js}"></script>
+	<script
+		th:src="@{/home/plugins/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js}"></script>
+	<script th:src="@{/home/plugins/BootstrapMenu.min.js}"></script>
+	<script th:src="@{/home/plugins/device.min.js}"></script>
+	<script th:src="@{/home/plugins/fullPage/jquery.fullPage.min.js}"></script>
+	<script th:src="@{/home/plugins/fullPage/jquery.jdirk.min.js}"></script>
+	<script th:src="@{/home/plugins/jquery.cookie.js}"></script>
+	<script th:src="@{/home/js/admin.js}"></script>
 </body>
-<script th:src="@{/plugins/layui/layui.all.js}"></script>
 <script type="text/javascript" th:inline="javascript">
-	$(function() {
-		var baseUrl=[[@{/}]];
-		layui.use('element', function() {
-			var element = layui.element;
-		});
-		$("#userTree a").click(function() {
-			var url = $(this).find('span').data("url");
-			if (url) {
-				$('#main').attr('src', baseUrl+url);
-			}
-		});
+$(function() {
+	var baseUrl=[[@{/}]];
+	// 菜单点击
+	$('.waves-effect').click(function() {
+		var url = $(this).data('url');
+		var text = $(this).data('text');
+		if(url){
+			Tab.addTab(text, baseUrl+url);
+		}
 	});
+});
 </script>
 </html>

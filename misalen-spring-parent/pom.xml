@@ -29,11 +29,12 @@
 		<module>misalen-spring-cas</module>
 		<module>misalen-spring-config</module>
 	</modules>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-dependencies</artifactId>
-			<version>${spring.boot.version}</version>
+			<artifactId>spring-boot-starter-parent</artifactId>
+			<version>2.0.0.BUILD-SNAPSHOT</version>
 			<type>pom</type>
 			<scope>import</scope>
 		</dependency>
@@ -41,24 +42,23 @@
 
 	<repositories>
 		<repository>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
 			<id>maven2-release</id>
 			<url>http://uk.maven.org/maven2/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
 		</repository>
 		<repository>
-			<snapshots>
-				<enabled>true</enabled>
-				<updatePolicy>interval:120</updatePolicy>
-			</snapshots>
 			<id>oss-snapshots</id>
 			<url>http://repository.jboss.org/nexus/content/groups/public/</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
 		</repository>
 		<repository>
 			<id>spring-snapshots</id>
 			<name>Spring Snapshots</name>
-			<url>https://repo.spring.io/snapshot</url>
+			<url>https://repo.spring.io/libs-snapshot</url>
 			<snapshots>
 				<enabled>true</enabled>
 			</snapshots>
