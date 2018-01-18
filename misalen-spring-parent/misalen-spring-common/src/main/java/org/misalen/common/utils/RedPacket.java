@@ -1,4 +1,4 @@
-package org.misalen.common.utils;
+ package org.misalen.common.utils;
 
 import java.util.Random;
 
