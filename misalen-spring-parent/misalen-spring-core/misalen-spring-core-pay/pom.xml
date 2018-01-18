@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>misalen-spring</groupId>
+		<artifactId>misalen-spring-core</artifactId>
+		<version>1.0.0</version>
+	</parent>
+	<artifactId>misalen-spring-core-pay</artifactId>
+	<name>misalen-spring-core-pay</name>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+		<!-- 微信支付宝支付集成文档地址：https://github.com/egzosn/pay-java-parent -->
+		<dependency>
+			<groupId>com.egzosn</groupId>
+			<artifactId>pay-java-common</artifactId>
+			<version>${egzosn.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.egzosn</groupId>
+			<artifactId>pay-java-wx</artifactId>
+			<version>${egzosn.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.egzosn</groupId>
+			<artifactId>pay-java-ali</artifactId>
+			<version>${egzosn.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>${spring.boot.version}</version>
+		</dependency>
+	</dependencies>
+</project>
