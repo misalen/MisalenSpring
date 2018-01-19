@@ -1,8 +1,11 @@
 package org.misalen.poi;
 
+import java.util.Date;
+
+import org.misalen.common.annotations.Enumeration;
 import org.misalen.common.annotations.ModelComment;
 
-@ModelComment("管理员")
+@ModelComment("管理员信息")
 public class SysAdmin {
 
 	@ModelComment("用户名")
@@ -13,6 +16,49 @@ public class SysAdmin {
 
 	@ModelComment("登录密码")
 	private String loginPwd;
+
+	@ModelComment("出生日期")
+	private Date birthday;
+	
+	@Enumeration("gender")
+	@ModelComment("性别 ")
+	private String gender;
+
+	/**  
+	 * 获取birthday  
+	 * @return birthday birthday  
+	 */
+	public Date getBirthday() {
+		return birthday;
+	}
+	
+
+	/**  
+	 * 设置birthday  
+	 * @param birthday birthday  
+	 */
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+	
+
+	/**  
+	 * 获取gender  
+	 * @return gender gender  
+	 */
+	public String getGender() {
+		return gender;
+	}
+	
+
+	/**  
+	 * 设置gender  
+	 * @param gender gender  
+	 */
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+	
 
 	/**
 	 * 获取username
