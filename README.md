@@ -6,15 +6,16 @@
 
 项目采用maven分模块结构、插件化设计，支持分包和集中部署，各个模块可简单插拔。配置文件可统一使用，也可以单独使用。支持测试环境和正式环境区分打包，`简单的用户角色权限管理`，`在线表单设计器`，`多种方式的代码生成`。
 ### 已确定结构
-![结构图](http://zhaoguochao.com/images/msialenbootstructure.png)
+[^_^]:![结构图](http://zhaoguochao.com/images/msialenbootstructure.png)
 >`misalen-spring-config`:配置中心<br>
 >`misalen-spring-common`:常用工具包+基础支撑<br>
->`misalen-spring-core（20%）`:与第三方对接的服务（微信支付，短信服务等）<br>
->`misalen-spring-db-jpa`:持久化基础<br>
+>`misalen-spring-core`:与第三方对接的服务（微信支付，短信服务等）<br>
+>`misalen-spring-db-jpa`:持久化基础，数据库操作基础<br>
 >`misalen-spring-system`:系统设置（管理员、角色、用户管理等）<br>
->`misalen-spring-generator（60%）`:自动化（代码生成、表单设计器、流程设计器）<br>
+>`misalen-spring-generator`:自动化（代码生成、表单设计器、流程设计器）<br>
 >`misalen-spring-cas`:单点登录<br>
->`misalen-spring-workflow（60%）`:集成activiti工作流<br>
+>`misalen-spring-workflow`:集成activiti工作流<br>
+>`misalen-spring-poi`:office组件操作工具包<br>
 
 ### 将持续增加
 >`misalen-spring-logback`:日志服务中心<br>
