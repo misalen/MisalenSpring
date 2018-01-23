@@ -24,9 +24,11 @@ public class TextUtil {
 	public static boolean isNullOrEmpty(String text) {
 		return text == null || text.isEmpty();
 	}
+
 	public static boolean isDateString(String datevalue) {
 		return isDateString(datevalue, "yyyy-MM-dd");
 	}
+
 	public static boolean isDateString(String datevalue, String dateFormat) {
 		if (isNullOrEmpty(datevalue)) {
 			return false;
@@ -207,5 +209,17 @@ public class TextUtil {
 			}
 		}
 		return result.toString();
+	}
+
+	public static String join(String[] strings) {
+		if (strings != null) {
+			StringBuffer sb = new StringBuffer();
+			for (String string : strings) {
+				sb.append(string);
+				sb.append(",");
+			}
+			return sb.substring(0, sb.length() - 1);
+		}
+		return null;
 	}
 }

@@ -27,12 +27,10 @@ import org.springframework.data.domain.Sort.Order;
 import org.springframework.data.jpa.domain.Specification;
 
 /**
- * 基础Service的定义
  * 
- * @author Jeff Xu
- * @since 2015-12-09
- * @param <E>
- * @param <ID>
+ * @author DO·VIS
+ *
+ *         2017年8月23日
  */
 public abstract class CustomService<E, ID extends Serializable> {
 	@Autowired
@@ -135,9 +133,11 @@ public abstract class CustomService<E, ID extends Serializable> {
 	public List<E> findAll(Specification<E> spec) {
 		return baseRepository.findAll(spec);
 	}
+
 	public List<E> findAll() {
 		return baseRepository.findAll();
 	}
+
 	/**
 	 * 获取Entity的分页信息
 	 * 

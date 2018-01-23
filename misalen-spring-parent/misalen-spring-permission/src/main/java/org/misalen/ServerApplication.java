@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.misalen.common.global.ModuleUtil;
+import org.misalen.common.utils.TextUtil;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletComponentScan;
@@ -26,12 +28,15 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableCaching
 @ServletComponentScan
 @EnableTransactionManagement
-@SpringBootApplication(scanBasePackages = { "org.misalen" })
+@SpringBootApplication(scanBasePackages = { ModuleUtil.packageName })
 public class ServerApplication {
+
 	public static void main(String[] args) throws IOException {
 		SpringApplication application = new SpringApplication(ServerApplication.class);
-		Map<String, Object> map =new HashMap<>();
-		map.put("spring.config.name", "system");
+		Map<String, Object> map = new HashMap<>();
+		String[] names = ModuleUtil.getPropertiesName();
+		String name = TextUtil.join(names);
+		map.put("spring.config.name", name);
 		application.setDefaultProperties(map);
 		application.run(args);
 	}
