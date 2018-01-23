@@ -2,14 +2,12 @@ package org.misalen.core.pay.ali;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import com.egzosn.pay.ali.api.AliPayConfigStorage;
 import com.egzosn.pay.ali.api.AliPayService;
 
 @Component
-@PropertySource(value = { "classpath:*.properties", "classpath:misalen-pay.properties" }, ignoreResourceNotFound = true)
 @ConfigurationProperties(prefix = "misalen.pay.alipay")
 public class AliPayConfig {
 	/** 应用id */

@@ -2,14 +2,12 @@ package org.misalen.core.pay.wechat;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import com.egzosn.pay.wx.api.WxPayConfigStorage;
 import com.egzosn.pay.wx.api.WxPayService;
 
 @Component
-@PropertySource(value = { "classpath:*.properties", "classpath:misalen-pay.properties" }, ignoreResourceNotFound = true)
 @ConfigurationProperties(prefix = "misalen.pay.wechat")
 public class WeChatPayConfig {
 	/** 应用id */
