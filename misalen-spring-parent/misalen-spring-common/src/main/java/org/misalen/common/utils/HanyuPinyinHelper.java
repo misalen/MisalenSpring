@@ -114,8 +114,4 @@ public class HanyuPinyinHelper {
 		}
 		return hanyupinyin;
 	}
-
-	public static void main(String[] args) {
-		System.out.println(HanyuPinyinHelper.toHanyuPinyin("名称,模板生成用到"));
-	}
 }
