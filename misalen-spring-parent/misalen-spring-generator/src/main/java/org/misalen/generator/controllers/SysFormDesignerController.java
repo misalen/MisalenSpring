@@ -7,7 +7,7 @@ import javax.transaction.Transactional;
 import org.misalen.common.advice.structure.RestResult;
 import org.misalen.generator.domain.SysFormField;
 import org.misalen.generator.service.SysFormFieldService;
-import org.misalen.system.controllers.BaseController;
+import org.misalen.web.controllers.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

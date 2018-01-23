@@ -23,7 +23,7 @@ import org.misalen.generator.domain.SysTableInfo;
 import org.misalen.generator.service.SysTableColumnService;
 import org.misalen.generator.service.SysTableInfoService;
 import org.misalen.hibernate.DbTableService;
-import org.misalen.system.controllers.BaseController;
+import org.misalen.web.controllers.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

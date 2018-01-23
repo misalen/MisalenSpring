@@ -14,7 +14,7 @@ import org.misalen.generator.domain.SysFlowNode;
 import org.misalen.generator.domain.SysFlowNodeAtta;
 import org.misalen.generator.service.SysFlowNodeAttaService;
 import org.misalen.generator.service.SysFlowNodeService;
-import org.misalen.system.controllers.BaseController;
+import org.misalen.web.controllers.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

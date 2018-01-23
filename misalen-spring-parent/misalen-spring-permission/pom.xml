@@ -8,8 +8,8 @@
 		<artifactId>misalen-spring-parent</artifactId>
 		<version>1.0.0</version>
 	</parent>
-	<artifactId>misalen-spring-generator</artifactId>
-	<name>misalen-spring-generator</name>
+	<artifactId>misalen-spring-permission</artifactId>
+	<name>misalen-spring-permission</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
@@ -18,9 +18,19 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.freemarker</groupId>
-			<artifactId>freemarker</artifactId>
-			<version>2.3.23</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+			<version>${spring.boot.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>${spring.shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>${spring.shiro.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

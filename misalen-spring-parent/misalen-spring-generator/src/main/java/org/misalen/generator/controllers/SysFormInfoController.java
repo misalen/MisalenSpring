@@ -22,11 +22,6 @@ import org.misalen.generator.service.SysTableInfoService;
 import org.misalen.hibernate.tool.util.FormTypeToJavaHelper;
 import org.misalen.hibernate.tool.util.JavaToFormTypeHelper;
 import org.misalen.hibernate.tool.util.Named;
-import org.misalen.system.controllers.BaseController;
-import org.misalen.system.domain.SysResources;
-import org.misalen.system.domain.SysResources.SaveType;
-import org.misalen.system.service.SysConversionService;
-import org.misalen.system.service.SysResourcesService;
 import org.misalen.util.ControllerGenerator;
 import org.misalen.util.ModelGenerator;
 import org.misalen.util.PageAddGenerator;
@@ -34,6 +29,8 @@ import org.misalen.util.PageListGenerator;
 import org.misalen.util.PageUpdateGenerator;
 import org.misalen.util.RepositoryGenerator;
 import org.misalen.util.ServiceGenerator;
+import org.misalen.web.controllers.BaseController;
+import org.misalen.web.service.SysConversionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,8 +49,8 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping("/sys/form/info")
 public class SysFormInfoController extends BaseController {
-	@Autowired
-	public SysResourcesService sysResourcesService;
+//	@Autowired
+//	public SysResourcesService sysResourcesService;
 	@Autowired
 	public SysFormInfoService sysFormInfoService;
 	@Autowired
@@ -251,27 +248,27 @@ public class SysFormInfoController extends BaseController {
 	}
 
 	private void addMenu(SysFormInfo formInfo, String moduleName, String functionName, String path) {
-		SysResources parent = sysResourcesService.findByText(formInfo.getModuleName());
-		if (parent == null) {
-			parent = new SysResources();
-			parent.setSaveType(SaveType.menu1.name());
-			parent.setText(formInfo.getModuleName());
-			parent.setUsingState("available");
-			parent.setSeq(0);
-			sysResourcesService.save(parent);
-		}
-		SysResources resources = sysResourcesService.findByTextAndParentId(formInfo.getFunctionName(),
-				parent.getPrimaryKey());
-		if (resources == null) {
-			resources = new SysResources();
-			resources.setParentId(parent.getPrimaryKey());
-			resources.setSaveType(SaveType.menu2.name());
-			resources.setText(formInfo.getFunctionName());
-			resources.setUsingState("available");
-			resources.setSeq(0);
-			resources.setResourceUrl(path+"/");
-			sysResourcesService.save(resources);
-		}
+//		SysResources parent = sysResourcesService.findByText(formInfo.getModuleName());
+//		if (parent == null) {
+//			parent = new SysResources();
+//			parent.setSaveType(SaveType.menu1.name());
+//			parent.setText(formInfo.getModuleName());
+//			parent.setUsingState("available");
+//			parent.setSeq(0);
+//			sysResourcesService.save(parent);
+//		}
+//		SysResources resources = sysResourcesService.findByTextAndParentId(formInfo.getFunctionName(),
+//				parent.getPrimaryKey());
+//		if (resources == null) {
+//			resources = new SysResources();
+//			resources.setParentId(parent.getPrimaryKey());
+//			resources.setSaveType(SaveType.menu2.name());
+//			resources.setText(formInfo.getFunctionName());
+//			resources.setUsingState("available");
+//			resources.setSeq(0);
+//			resources.setResourceUrl(path+"/");
+//			sysResourcesService.save(resources);
+//		}
 
 	}
 

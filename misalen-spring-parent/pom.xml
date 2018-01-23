@@ -23,13 +23,15 @@
 		<module>misalen-spring-common</module>
 		<module>misalen-spring-core</module>
 		<module>misalen-spring-db-jpa</module>
-		<module>misalen-spring-system</module>
 		<module>misalen-spring-generator</module>
 		<module>misalen-spring-workflow</module>
 		<module>misalen-spring-integration</module>
 		<module>misalen-spring-cas</module>
 		<module>misalen-spring-config</module>
 		<module>misalen-spring-poi</module>
+		<module>misalen-spring-mq</module>
+		<module>misalen-spring-permission</module>
+		<module>misalen-spring-web</module>
 	</modules>
 
 	<dependencies>

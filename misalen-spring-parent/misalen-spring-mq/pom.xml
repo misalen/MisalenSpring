@@ -8,25 +8,25 @@
 		<artifactId>misalen-spring-parent</artifactId>
 		<version>1.0.0</version>
 	</parent>
-	<artifactId>misalen-spring-generator</artifactId>
-	<name>misalen-spring-generator</name>
+	<artifactId>misalen-spring-mq</artifactId>
+	<name>misalen-spring-mq</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
-		<dependency>
-			<groupId>misalen-spring</groupId>
-			<artifactId>misalen-spring-web</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.freemarker</groupId>
-			<artifactId>freemarker</artifactId>
-			<version>2.3.23</version>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<version>${spring.boot.version}</version>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>${spring.boot.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-activemq</artifactId>
+			<version>${spring.boot.version}</version>
 		</dependency>
 	</dependencies>
 </project>
