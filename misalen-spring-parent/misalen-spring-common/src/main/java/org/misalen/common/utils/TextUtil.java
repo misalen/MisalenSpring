@@ -25,10 +25,6 @@ public class TextUtil {
 		return text == null || text.isEmpty();
 	}
 
-	public static boolean isDateString(String datevalue) {
-		return isDateString(datevalue, "yyyy-MM-dd");
-	}
-
 	public static boolean isDateString(String datevalue, String dateFormat) {
 		if (isNullOrEmpty(datevalue)) {
 			return false;

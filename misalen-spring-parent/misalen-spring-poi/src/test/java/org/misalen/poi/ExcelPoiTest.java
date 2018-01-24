@@ -7,15 +7,24 @@ import java.io.InputStream;
 import java.util.List;
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.misalen.ServerApplication;
 import org.misalen.poi.export.TemplateExportParams;
 import org.misalen.poi.export.TemplateExportUtil;
 import org.misalen.poi.importe.TemplateImportParams;
 import org.misalen.poi.importe.TemplateImportUtil;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.test.context.junit4.SpringRunner;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = ServerApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 public class ExcelPoiTest {
 	static String filepath = "C:/Users/zhaoguochao/Desktop/myExcel.xlsx";
 
-	public static void main(String[] args) throws Exception {
+	@Test
+	public void main() throws Exception {
 		// exportExcel();
 		importExcel();
 	}

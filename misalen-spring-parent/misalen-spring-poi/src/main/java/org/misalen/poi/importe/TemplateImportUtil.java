@@ -2,10 +2,17 @@ package org.misalen.poi.importe;
 
 import java.io.InputStream;
 import java.lang.reflect.Field;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.poi.ss.formula.eval.ErrorEval;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
+import org.apache.poi.util.LocaleUtil;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -22,28 +29,61 @@ import org.misalen.poi.base.TemplateBase;
  */
 public class TemplateImportUtil extends TemplateBase {
 
+	public <T> List<T> parsing(InputStream is, Class<T> clazz) throws Exception {
+		return parsing(new TemplateImportParams(), is, clazz, null);
+	}
+
 	public <T> List<T> parsing(TemplateImportParams importParams, InputStream is, Class<T> clazz) throws Exception {
+		return parsing(importParams, is, clazz, null);
+	}
+
+	public <T> List<T> parsing(TemplateImportParams importParams, InputStream is, Class<T> clazz,
+			Map<String, String> escapeMap) throws Exception {
 		XSSFWorkbook workbook = new XSSFWorkbook(is);
 		bulidParams(importParams, clazz);
 		Map<String, String> map = escape(clazz);
+		if (escapeMap != null) {
+			map.putAll(escapeMap);
+		}
 		XSSFSheet sheet = workbook.getSheet(importParams.getSheetName());
-		int rowNum = sheet.getLastRowNum();
-		XSSFRow row = sheet.getRow(0);
+		XSSFRow row = sheet.getRow(importParams.getTitleLine() + 1);
 		int colNum = row.getPhysicalNumberOfCells();
-//		// 正文内容应该从第二行开始,第一行为表头的标题
-//		for (int i = 1; i <= rowNum; i++) {
-//			row = sheet.getRow(i);
-//			int j = 0;
-//			Map<Integer, Object> cellValue = new HashMap<Integer, Object>();
-//			while (j < colNum) {
-//				Object obj = getCellFormatValue(row.getCell(j));
-//				cellValue.put(j, obj);
-//				j++;
-//			}
-//			content.put(i, cellValue);
-//		}
+		int index = importParams.getTitleLine() + 2;
+		List<T> list = new LinkedList<T>();
+		for (Cell cell : row) {
+			XSSFRow valueRow = sheet.getRow(index);
+			T t = clazz.newInstance();
+			for (int i = 0; i < colNum; i++) {
+				System.err.println(getValue(valueRow.getCell(i)));
+			}
+			index++;
+		}
 		workbook.close();
 		return null;
+	}
+
+	public String getValue(Cell cell) {
+		switch (cell.getCellTypeEnum()) {
+		case NUMERIC:
+			if (DateUtil.isCellDateFormatted(cell)) {
+				DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", LocaleUtil.getUserLocale());
+				sdf.setTimeZone(LocaleUtil.getUserTimeZone());
+				return sdf.format(cell.getDateCellValue());
+			}
+			return Double.toString(cell.getNumericCellValue());
+		case STRING:
+			return cell.getRichStringCellValue().toString();
+		case FORMULA:
+			return cell.getCellFormula();
+		case BLANK:
+			return "";
+		case BOOLEAN:
+			return cell.getBooleanCellValue() ? Boolean.TRUE.toString() : Boolean.FALSE.toString();
+		case ERROR:
+			return ErrorEval.getText(cell.getErrorCellValue());
+		default:
+			return "Unknown Cell Type: " + cell.getCellTypeEnum();
+		}
 	}
 
 	private void bulidParams(TemplateImportParams importParams, Class<?> clazz) {
@@ -55,7 +95,6 @@ public class TemplateImportUtil extends TemplateBase {
 		for (Field field : clazz.getDeclaredFields()) {
 			if (ObjectUtils.isBaseDataType(field.getType())) {
 				ModelComment comment = field.getAnnotation(ModelComment.class);
-				System.err.println(field.getName());
 				map.put(comment.value(), field.getName());
 			}
 		}

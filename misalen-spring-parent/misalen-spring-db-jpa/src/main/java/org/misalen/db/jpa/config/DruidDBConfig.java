@@ -28,46 +28,46 @@ public class DruidDBConfig {
 		this.properties = properties;
 	}
 
-	@Value("${spring.datasource.initialSize}")
+	@Value("${spring.datasource.initialSize:5}")
 	private int initialSize;
 
-	@Value("${spring.datasource.minIdle}")
+	@Value("${spring.datasource.minIdle:5}")
 	private int minIdle;
 
-	@Value("${spring.datasource.maxActive}")
+	@Value("${spring.datasource.maxActive:20}")
 	private int maxActive;
 
-	@Value("${spring.datasource.maxWait}")
+	@Value("${spring.datasource.maxWait:60000}")
 	private int maxWait;
 
-	@Value("${spring.datasource.timeBetweenEvictionRunsMillis}")
+	@Value("${spring.datasource.timeBetweenEvictionRunsMillis:60000}")
 	private int timeBetweenEvictionRunsMillis;
 
-	@Value("${spring.datasource.minEvictableIdleTimeMillis}")
+	@Value("${spring.datasource.minEvictableIdleTimeMillis:300000}")
 	private int minEvictableIdleTimeMillis;
 
-	@Value("${spring.datasource.validationQuery}")
+	@Value("${spring.datasource.validationQuery:SELECT 1 FROM DUAL}")
 	private String validationQuery;
 
-	@Value("${spring.datasource.testWhileIdle}")
+	@Value("${spring.datasource.testWhileIdle:true}")
 	private boolean testWhileIdle;
 
-	@Value("${spring.datasource.testOnBorrow}")
+	@Value("${spring.datasource.testOnBorrow:false}")
 	private boolean testOnBorrow;
 
-	@Value("${spring.datasource.testOnReturn}")
+	@Value("${spring.datasource.testOnReturn:false}")
 	private boolean testOnReturn;
 
-	@Value("${spring.datasource.poolPreparedStatements}")
+	@Value("${spring.datasource.poolPreparedStatements:true}")
 	private boolean poolPreparedStatements;
 
-	@Value("${spring.datasource.maxPoolPreparedStatementPerConnectionSize}")
+	@Value("${spring.datasource.maxPoolPreparedStatementPerConnectionSize:20}")
 	private int maxPoolPreparedStatementPerConnectionSize;
 
-	@Value("${spring.datasource.filters}")
+	@Value("${spring.datasource.filters:stat,wall,log4j2}")
 	private String filters;
 
-	@Value("{spring.datasource.connectionProperties}")
+	@Value("{spring.datasource.connectionProperties:druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;}")
 	private String connectionProperties;
 
 	@Bean // 声明其为Bean实例
