@@ -1,4 +1,4 @@
-package org.misalen.poi.base;
+package org.misalen.poi.excle.base;
 
 public class TemplateParamsBase {
 	/**

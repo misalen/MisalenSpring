@@ -1,9 +1,10 @@
-package org.misalen.poi.base;
+package org.misalen.poi.excle.base;
 
 import org.misalen.common.annotations.ModelComment;
 import org.misalen.common.utils.TextUtil;
 
 public class TemplateBase {
+	protected static final String DATE_FORMAT="yyyy-MM-dd";
 	/**
 	 * 设置基本参数
 	 * 

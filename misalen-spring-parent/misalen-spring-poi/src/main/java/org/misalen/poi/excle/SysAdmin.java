@@ -1,4 +1,4 @@
-package org.misalen.poi;
+package org.misalen.poi.excle;
 
 import java.util.Date;
 
@@ -115,6 +115,16 @@ public class SysAdmin {
 	 */
 	public void setLoginPwd(String loginPwd) {
 		this.loginPwd = loginPwd;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "SysAdmin [username=" + username + ", nickname=" + nickname + ", loginPwd=" + loginPwd + ", birthday="
+				+ birthday + ", gender=" + gender + "]";
 	}
 
 }

@@ -10,10 +10,12 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.misalen.ServerApplication;
-import org.misalen.poi.export.TemplateExportParams;
-import org.misalen.poi.export.TemplateExportUtil;
-import org.misalen.poi.importe.TemplateImportParams;
-import org.misalen.poi.importe.TemplateImportUtil;
+import org.misalen.poi.excle.SysAdmin;
+import org.misalen.poi.excle.export.TemplateExport;
+import org.misalen.poi.excle.export.TemplateExportParams;
+import org.misalen.poi.excle.importe.TemplateImport;
+import org.misalen.poi.excle.importe.TemplateImportParams;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -22,27 +24,35 @@ import org.springframework.test.context.junit4.SpringRunner;
 @SpringBootTest(classes = ServerApplication.class, webEnvironment = WebEnvironment.RANDOM_PORT)
 public class ExcelPoiTest {
 	static String filepath = "C:/Users/zhaoguochao/Desktop/myExcel.xlsx";
+	@Autowired
+	TemplateImport templateImport;
+	@Autowired
+	TemplateExport templateExport;
 
 	@Test
-	public void main() throws Exception {
-		// exportExcel();
-		importExcel();
+	public void main() {
+		try {
+			//exportExcel();
+			 importExcel();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-	private static void importExcel() throws Exception {
+	private void importExcel() throws Exception {
 		InputStream is = new FileInputStream(filepath);
 		TemplateImportParams importParams = new TemplateImportParams();
 		importParams.setTitleHidden(true);
-		List<SysAdmin> admins = new TemplateImportUtil().parsing(importParams, is, SysAdmin.class);
-
+		List<SysAdmin> admins = templateImport.parsing(importParams, is, SysAdmin.class);
+		for (SysAdmin sysAdmin : admins) {
+			System.err.println(sysAdmin.toString());
+		}
 	}
 
-	private static void exportExcel() throws IOException {
+	private void exportExcel() throws IOException {
 		TemplateExportParams exportParams = new TemplateExportParams();
 		exportParams.setTitleHidden(true);
-		// exportParams.setSheetName("ceshi");
-		// exportParams.setTitle("员工名单收集");
-		XSSFWorkbook workbook = new TemplateExportUtil().export(exportParams, SysAdmin.class); // 创建一个excel
+		XSSFWorkbook workbook = templateExport.export(exportParams, SysAdmin.class); // 创建一个excel
 		// 输出到本地
 		FileOutputStream out = null;
 		try {

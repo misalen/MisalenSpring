@@ -1,6 +1,6 @@
-package org.misalen.poi.export;
+package org.misalen.poi.excle.importe;
 
-import org.misalen.poi.base.TemplateParamsBase;
+import org.misalen.poi.excle.base.TemplateParamsBase;
 
 /**
  * Excel 模板导出参数
@@ -9,10 +9,14 @@ import org.misalen.poi.base.TemplateParamsBase;
  *
  *         2018年1月18日
  */
-public class TemplateExportParams extends TemplateParamsBase {
+public class TemplateImportParams extends TemplateParamsBase {
 
 	/**
-	 * 名称
+	 * 字段数量
+	 */
+	private int filedSize;
+	/**
+	 * 表格名称
 	 */
 	private String title;
 
@@ -25,6 +29,25 @@ public class TemplateExportParams extends TemplateParamsBase {
 	 * 列宽
 	 */
 	private int columnWidth = 5000;
+
+	/**
+	 * 获取字段数量
+	 * 
+	 * @return filedSize 字段数量
+	 */
+	public int getFiledSize() {
+		return filedSize;
+	}
+
+	/**
+	 * 设置字段数量
+	 * 
+	 * @param filedSize
+	 *            字段数量
+	 */
+	public void setFiledSize(int filedSize) {
+		this.filedSize = filedSize;
+	}
 
 	/**
 	 * 获取表格名称

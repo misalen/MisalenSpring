@@ -1,7 +1,8 @@
-package org.misalen.poi.export;
+package org.misalen.poi.excle.export;
 
 import java.lang.reflect.Field;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.DataValidation;
@@ -20,7 +21,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.misalen.common.annotations.Enumeration;
 import org.misalen.common.annotations.ModelComment;
 import org.misalen.common.utils.ObjectUtils;
-import org.misalen.poi.base.TemplateBase;
+import org.misalen.poi.excle.base.TemplateBase;
+import org.misalen.web.domain.SysDictionaryData;
+import org.misalen.web.repository.SysDictionaryDataRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 /**
  * 模板导出类
@@ -29,7 +34,10 @@ import org.misalen.poi.base.TemplateBase;
  *
  *         2018年1月19日
  */
-public class TemplateExportUtil extends TemplateBase {
+@Component
+public class TemplateExport extends TemplateBase {
+	@Autowired
+	SysDictionaryDataRepository dataRepository;
 
 	public XSSFWorkbook export(TemplateExportParams exportParams, Class<?> clazz) {
 		XSSFWorkbook workbook = new XSSFWorkbook();
@@ -126,7 +134,13 @@ public class TemplateExportUtil extends TemplateBase {
 		if (enumeration != null) {
 			DataValidationHelper helper = sheet.getDataValidationHelper();
 			CellRangeAddressList addressList = new CellRangeAddressList(line + 1, 65535, column, column);
-			String[] pos = new String[] { "1", "2", "3" };
+
+			Enumeration code = field.getAnnotation(Enumeration.class);
+			List<SysDictionaryData> datas = dataRepository.findByDtCode(code.value());
+			String[] pos = new String[datas.size()];
+			for (int i = 0; i < datas.size(); i++) {
+				pos[i] = datas.get(i).getName();
+			}
 			DataValidationConstraint constraint = helper.createExplicitListConstraint(pos);
 			DataValidation dataValidation = helper.createValidation(constraint, addressList);
 			dataValidation.setSuppressDropDownArrow(true);
@@ -135,7 +149,7 @@ public class TemplateExportUtil extends TemplateBase {
 		} else if (field.getType().isAssignableFrom(Date.class)) {
 			XSSFCellStyle cellStyle = workbook.createCellStyle();
 			XSSFDataFormat format = workbook.createDataFormat();
-			cellStyle.setDataFormat(format.getFormat("yyyy-MM-dd"));
+			cellStyle.setDataFormat(format.getFormat(DATE_FORMAT));
 			sheet.setDefaultColumnStyle(column, cellStyle);
 		}
 	}
