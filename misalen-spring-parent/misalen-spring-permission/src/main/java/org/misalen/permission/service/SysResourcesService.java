@@ -67,7 +67,7 @@ public class SysResourcesService extends CustomService<SysResources, String> {
 					}
 					parent.getChildren().add(sysResource);
 				} else {
-					SysResources parent = sysResourcesRepository.findById(sysResource.getParentId()).get();
+					SysResources parent = sysResourcesRepository.findOne(sysResource.getParentId());
 					if (parent != null) {
 						parent.setChildren(new LinkedList<SysResources>());
 						parent.getChildren().add(sysResource);

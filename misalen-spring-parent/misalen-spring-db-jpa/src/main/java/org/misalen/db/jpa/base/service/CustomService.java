@@ -2,6 +2,7 @@ package org.misalen.db.jpa.base.service;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -107,7 +108,7 @@ public abstract class CustomService<E, ID extends Serializable> {
 	 * @param id
 	 */
 	public void delete(ID id) {
-		baseRepository.deleteById(id);
+		baseRepository.delete(id);
 	}
 
 	/**
@@ -218,7 +219,7 @@ public abstract class CustomService<E, ID extends Serializable> {
 		if (pageFrom == null) {
 			return null;
 		}
-		Pageable pageable = PageRequest.of(pageFrom.getPage() - 1, pageFrom.getRows(), bulidSort(pageFrom));
+		Pageable pageable = new PageRequest(pageFrom.getPage() - 1, pageFrom.getRows(), bulidSort(pageFrom));
 		return pageable;
 	}
 
@@ -229,14 +230,15 @@ public abstract class CustomService<E, ID extends Serializable> {
 		from.setTotal(page.getTotalElements());
 		from.setRows(page.getSize());
 		if (page.getSort() != null) {
-			Iterator<Order> iteratorasc = page.getSort().ascending().iterator();
+			Iterator<Order> iteratorasc = page.getSort().iterator();
 			while (iteratorasc.hasNext()) {
 				from.addAsc(iteratorasc.next().getProperty());
 			}
-			Iterator<Order> iteratordesc = page.getSort().descending().iterator();
+			Iterator<Order> iteratordesc = page.getSort().iterator();
 			while (iteratordesc.hasNext()) {
-				from.addAsc(iteratordesc.next().getProperty());
+				from.addDesc(iteratordesc.next().getProperty());
 			}
+			Collections.reverse(from.getDesc());
 		}
 		return from;
 	}
@@ -247,7 +249,6 @@ public abstract class CustomService<E, ID extends Serializable> {
 			/**
 			 * 
 			 */
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public Predicate toPredicate(Root<E> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {

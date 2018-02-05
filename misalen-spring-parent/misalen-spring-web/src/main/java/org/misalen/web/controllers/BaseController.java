@@ -1,7 +1,5 @@
 package org.misalen.web.controllers;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.misalen.common.advice.structure.RestResult;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -12,12 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
  *
  */
 public class BaseController {
-
-	protected static Logger logger;
-
-	public BaseController() {
-		logger = LogManager.getLogger(getClass());
-	}
 
 	protected RestResult<?> renderError(String msg) {
 		return RestResult.error(msg);

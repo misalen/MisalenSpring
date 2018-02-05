@@ -162,8 +162,8 @@ public class Pac4jConfig {
 	 */
 	@Bean
 	@Order(Ordered.HIGHEST_PRECEDENCE)
-	public FilterRegistrationBean<SingleSignOutFilter> singleSignOutFilter() {
-		FilterRegistrationBean<SingleSignOutFilter> bean = new FilterRegistrationBean<SingleSignOutFilter>();
+	public FilterRegistrationBean singleSignOutFilter() {
+		FilterRegistrationBean bean = new FilterRegistrationBean();
 		bean.setName("singleSignOutFilter");
 		SingleSignOutFilter singleSignOutFilter = new SingleSignOutFilter();
 		singleSignOutFilter.setCasServerUrlPrefix(prefixUrl);

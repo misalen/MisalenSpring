@@ -54,8 +54,8 @@ public class ShiroConfig extends AbstractShiroWebFilterConfiguration {
 	}
 
 	@Bean
-	public FilterRegistrationBean<DelegatingFilterProxy> filterRegistrationBean() {
-		FilterRegistrationBean<DelegatingFilterProxy> filterRegistrationBean = new FilterRegistrationBean<DelegatingFilterProxy>();
+	public FilterRegistrationBean filterRegistrationBean() {
+		FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
 		filterRegistrationBean.setFilter(new DelegatingFilterProxy("shiroFilter"));
 		filterRegistrationBean.addInitParameter("targetFilterLifecycle", "true");
 		filterRegistrationBean.setEnabled(true);

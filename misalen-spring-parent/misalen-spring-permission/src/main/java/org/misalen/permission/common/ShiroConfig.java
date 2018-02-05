@@ -112,8 +112,8 @@ public class ShiroConfig {
 	}
 
 	@Bean
-	protected FilterRegistrationBean<DelegatingFilterProxy> delegatingFilterProxy() {
-		FilterRegistrationBean<DelegatingFilterProxy> filterRegistrationBean = new FilterRegistrationBean<DelegatingFilterProxy>();
+	protected FilterRegistrationBean delegatingFilterProxy() {
+		FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
 		DelegatingFilterProxy proxy = new DelegatingFilterProxy();
 		proxy.setTargetFilterLifecycle(true);
 		proxy.setTargetBeanName("shiroFilter");

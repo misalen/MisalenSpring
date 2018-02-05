@@ -4,7 +4,7 @@ import org.springframework.boot.autoconfigure.thymeleaf.ThymeleafProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
+import org.thymeleaf.spring4.templateresolver.SpringResourceTemplateResolver;
 
 @Configuration
 public class ThymeleafConfig {
@@ -17,7 +17,7 @@ public class ThymeleafConfig {
 		this.properties = properties;
 		this.applicationContext = applicationContext;
 	}
-
+	
 	@Bean
 	public SpringResourceTemplateResolver springResourceTemplateResolver() {
 		SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();

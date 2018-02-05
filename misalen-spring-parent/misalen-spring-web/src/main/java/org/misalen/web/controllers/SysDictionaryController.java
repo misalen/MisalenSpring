@@ -62,11 +62,6 @@ public class SysDictionaryController extends BaseController {
 	})
 	public @ResponseBody RestResult<?> all() {
 		return renderSuccess(sysDictionaryService.findAll(new Specification<SysDictionary>() {
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public Predicate toPredicate(Root<SysDictionary> root, CriteriaQuery<?> query,
 					CriteriaBuilder criteriaBuilder) {

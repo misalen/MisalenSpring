@@ -64,11 +64,11 @@ public class HomeController extends BaseController {
 	@PostMapping("/login")
 	public ModelAndView loginPost(String username, String password) {
 		if (TextUtil.isNullOrEmpty(username)) {
-			logger.error("用户名不能为空");
+			//logger.error("用户名不能为空");
 			return new ModelAndView("redirect:/login");
 		}
 		if (TextUtil.isNullOrEmpty(password)) {
-			logger.error("密码不能为空");
+			//logger.error("密码不能为空");
 			return new ModelAndView("redirect:/login");
 		}
 		Subject user = SecurityUtils.getSubject();
@@ -77,16 +77,16 @@ public class HomeController extends BaseController {
 		try {
 			user.login(token);
 		} catch (UnknownAccountException e) {
-			logger.error("账号不存在！", e);
+			//logger.error("账号不存在！", e);
 			return new ModelAndView("redirect:/login");
 		} catch (DisabledAccountException e) {
-			logger.error("账号未启用！", e);
+			//logger.error("账号未启用！", e);
 			return new ModelAndView("redirect:/login");
 		} catch (IncorrectCredentialsException e) {
-			logger.error("密码错误！", e);
+			//logger.error("密码错误！", e);
 			return new ModelAndView("redirect:/login");
 		} catch (RuntimeException e) {
-			logger.error("未知错误,请联系管理员！", e);
+			//logger.error("未知错误,请联系管理员！", e);
 			return new ModelAndView("redirect:/login");
 		}
 		return new ModelAndView("redirect:/home/");

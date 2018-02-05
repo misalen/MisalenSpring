@@ -39,8 +39,8 @@ public class CasConfig {
 	}
 
 	@Bean
-	public FilterRegistrationBean<SingleSignOutFilter> singleSignOutFilter() {
-		FilterRegistrationBean<SingleSignOutFilter> filterRegistration = new FilterRegistrationBean<SingleSignOutFilter>();
+	public FilterRegistrationBean singleSignOutFilter() {
+		FilterRegistrationBean filterRegistration = new FilterRegistrationBean();
 		filterRegistration.setFilter(new SingleSignOutFilter());
 		filterRegistration.setEnabled(casEnabled);
 		if (autoconfig.getSignOutFilters().size() > 0) {
@@ -54,8 +54,8 @@ public class CasConfig {
 	}
 
 	@Bean
-	public FilterRegistrationBean<AuthenticationFilter> authenticationFilter() {
-		FilterRegistrationBean<AuthenticationFilter> filterRegistration = new FilterRegistrationBean<AuthenticationFilter>();
+	public FilterRegistrationBean authenticationFilter() {
+		FilterRegistrationBean filterRegistration = new FilterRegistrationBean();
 		filterRegistration.setFilter(new AuthenticationFilter());
 		filterRegistration.setEnabled(casEnabled);
 		if (autoconfig.getAuthFilters().size() > 0) {
@@ -73,8 +73,8 @@ public class CasConfig {
 	}
 
 	@Bean
-	public FilterRegistrationBean<Cas20ProxyReceivingTicketValidationFilter> cas20ProxyReceivingTicketValidationFilter() {
-		FilterRegistrationBean<Cas20ProxyReceivingTicketValidationFilter> filterRegistration = new FilterRegistrationBean<Cas20ProxyReceivingTicketValidationFilter>();
+	public FilterRegistrationBean cas20ProxyReceivingTicketValidationFilter() {
+		FilterRegistrationBean filterRegistration = new FilterRegistrationBean();
 		filterRegistration.setFilter(new Cas20ProxyReceivingTicketValidationFilter());
 		filterRegistration.setEnabled(casEnabled);
 		if (autoconfig.getValidateFilters().size() > 0) {
@@ -89,8 +89,8 @@ public class CasConfig {
 	}
 
 	@Bean
-	public FilterRegistrationBean<HttpServletRequestWrapperFilter> httpServletRequestWrapperFilter() {
-		FilterRegistrationBean<HttpServletRequestWrapperFilter> filterRegistration = new FilterRegistrationBean<HttpServletRequestWrapperFilter>();
+	public FilterRegistrationBean httpServletRequestWrapperFilter() {
+		FilterRegistrationBean filterRegistration = new FilterRegistrationBean();
 		filterRegistration.setFilter(new HttpServletRequestWrapperFilter());
 		filterRegistration.setEnabled(true);
 		if (autoconfig.getRequestWrapperFilters().size() > 0) {
@@ -103,8 +103,8 @@ public class CasConfig {
 	}
 
 	@Bean
-	public FilterRegistrationBean<AssertionThreadLocalFilter> assertionThreadLocalFilter() {
-		FilterRegistrationBean<AssertionThreadLocalFilter> filterRegistration = new FilterRegistrationBean<AssertionThreadLocalFilter>();
+	public FilterRegistrationBean assertionThreadLocalFilter() {
+		FilterRegistrationBean filterRegistration = new FilterRegistrationBean();
 		filterRegistration.setFilter(new AssertionThreadLocalFilter());
 		filterRegistration.setEnabled(true);
 		if (autoconfig.getAssertionFilters().size() > 0) {

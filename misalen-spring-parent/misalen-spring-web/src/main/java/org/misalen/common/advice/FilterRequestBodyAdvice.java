@@ -16,7 +16,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpInputMessage;
 import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.lang.Nullable;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.RequestBodyAdvice;
@@ -69,8 +68,6 @@ public class FilterRequestBodyAdvice implements RequestBodyAdvice {
 	private static class MyHttpInputMessage implements HttpInputMessage {
 
 		private final HttpHeaders headers;
-
-		@Nullable
 		private final InputStream body;
 
 		public MyHttpInputMessage(HttpInputMessage inputMessage) throws Exception {

@@ -34,7 +34,7 @@ public class SysRoleResourcesService extends CustomService<SysRoleResources, Str
 				entities.add(sysRoleResources);
 			}
 		}
-		sysRoleResourcesRepository.saveAll(entities);
+		sysRoleResourcesRepository.save(entities);
 	}
 
 	public List<Object[]> getSystemPerm() {

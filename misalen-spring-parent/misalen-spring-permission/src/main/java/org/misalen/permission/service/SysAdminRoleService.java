@@ -33,6 +33,6 @@ public class SysAdminRoleService extends CustomService<SysAdminRole, String> {
 				entities.add(adminRole);
 			}
 		}
-		sysAdminRoleRepository.saveAll(entities);
+		sysAdminRoleRepository.save(entities);
 	}
 }

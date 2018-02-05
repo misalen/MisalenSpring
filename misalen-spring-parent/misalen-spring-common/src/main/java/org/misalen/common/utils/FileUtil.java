@@ -45,8 +45,10 @@ public class FileUtil {
 			if (file.isDirectory()) {// 处理文件夹
 				parentPath += file.getName() + File.separator;
 				File[] files = file.listFiles();
-				for (File f : files) {
-					writeZip(f, parentPath, zos);
+				if (files != null) {
+					for (File file2 : files) {
+						writeZip(file2, parentPath, zos);
+					}
 				}
 			} else {
 				FileInputStream fis = null;
@@ -109,10 +111,12 @@ public class FileUtil {
 	public static boolean deleteDir(File dir) {
 		if (dir.isDirectory()) {
 			String[] children = dir.list();// 递归删除目录中的子目录下
-			for (int i = 0; i < children.length; i++) {
-				boolean success = deleteDir(new File(dir, children[i]));
-				if (!success) {
-					return false;
+			if (children != null) {
+				for (int i = 0; i < children.length; i++) {
+					boolean success = deleteDir(new File(dir, children[i]));
+					if (!success) {
+						return false;
+					}
 				}
 			}
 		}

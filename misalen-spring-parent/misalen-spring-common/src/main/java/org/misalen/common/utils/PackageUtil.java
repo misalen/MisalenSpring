@@ -97,22 +97,23 @@ public class PackageUtil {
 		List<String> myClassName = new ArrayList<String>();
 		File file = new File(filePath);
 		File[] childFiles = file.listFiles();
-		for (File childFile : childFiles) {
-			if (childFile.isDirectory()) {
-				if (childPackage) {
-					myClassName.addAll(getClassNameByFile(childFile.getPath(), myClassName, childPackage));
-				}
-			} else {
-				String childFilePath = childFile.getPath();
-				if (childFilePath.endsWith(".class")) {
-					childFilePath = childFilePath.substring(childFilePath.indexOf("\\classes") + 9,
-							childFilePath.lastIndexOf("."));
-					childFilePath = childFilePath.replace("\\", ".");
-					myClassName.add(childFilePath);
+		if(childFiles!=null){
+			for (File childFile : childFiles) {
+				if (childFile.isDirectory()) {
+					if (childPackage) {
+						myClassName.addAll(getClassNameByFile(childFile.getPath(), myClassName, childPackage));
+					}
+				} else {
+					String childFilePath = childFile.getPath();
+					if (childFilePath.endsWith(".class")) {
+						childFilePath = childFilePath.substring(childFilePath.indexOf("\\classes") + 9,
+								childFilePath.lastIndexOf("."));
+						childFilePath = childFilePath.replace("\\", ".");
+						myClassName.add(childFilePath);
+					}
 				}
 			}
 		}
-
 		return myClassName;
 	}
 
