@@ -1,49 +1,54 @@
 package org.misalen;
 
-import java.util.ArrayList;
+import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-import org.activiti.engine.IdentityService;
-import org.activiti.engine.identity.Group;
-import org.activiti.engine.identity.User;
-import org.activiti.engine.impl.interceptor.SessionFactory;
-import org.activiti.spring.SpringProcessEngineConfiguration;
-import org.misalen.workflow.activiti.user.MyGroupManagerFactory;
+import org.activiti.engine.task.Task;
+import org.misalen.common.global.ModuleUtil;
+import org.misalen.common.utils.PageFrom;
+import org.misalen.common.utils.TextUtil;
+import org.misalen.workflow.activiti.main.service.MyTaskService;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.core.annotation.Order;
 
 @SpringBootApplication
 @ComponentScan({ "org.activiti.rest.diagram", "org.misalen" })
 public class BootWithActivitiApplication {
-	public static void main(String[] args) {
-		SpringApplication.run(BootWithActivitiApplication.class, args);
+	public static void main(String[] args) throws IOException {
+		SpringApplication application = new SpringApplication(BootWithActivitiApplication.class);
+		Map<String, Object> map = new HashMap<>();
+		String[] names = ModuleUtil.getPropertiesName();
+		String name = TextUtil.join(names);
+		map.put("spring.config.name", name);
+		application.setDefaultProperties(map);
+		application.run(args);
 	}
 
 	@Bean
-	@Order(100)
-	InitializingBean usersAndGroupsInitializer(final IdentityService identityService,
-			final SpringProcessEngineConfiguration processEngineConfiguration) {
+	InitializingBean usersAndGroupsInitializer(final MyTaskService myTaskService) {
 
 		return new InitializingBean() {
 			public void afterPropertiesSet() throws Exception {
-
-//				List<SessionFactory> customSessionFactories = new ArrayList<SessionFactory>();
-//				customSessionFactories.add(new MyGroupManagerFactory());
-//				processEngineConfiguration.setCustomSessionFactories(customSessionFactories);
-
-				Group group = identityService.newGroup("user");
-				group.setName("users");
-				group.setType("security-role");
-				identityService.saveGroup(group);
-
-				User admin = identityService.newUser("admin");
-				admin.setPassword("admin");
-				identityService.saveUser(admin);
-
+				//myDefineService.startThe("流程标识");
+				//System.err.println("==========="+myDefineService.count());
+				String userId = "admin";
+				PageFrom<Task> list=	myTaskService.findByUserPage(new PageFrom<Task>(), userId);
+//				List<Task> list = processEngine.getTaskService()//
+//						.createTaskQuery()//
+//						.taskAssignee(userId)// 指定个人任务查询
+//						.list();
+				for (Task task : list.getList()) {
+					System.out.println("id=" + task.getId());
+					System.out.println("name=" + task.getName());
+					System.out.println("assinee=" + task.getAssignee());
+					System.out.println("createTime=" + task.getCreateTime());
+					System.out.println("executionId=" + task.getExecutionId());
+				}
 			}
 		};
 	}

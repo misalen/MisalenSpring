@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head
+	th:replace="common/head :: common_header(~{::title},~{::script},~{::link})">
+<meta charset="utf-8" />
+<title>权限列表</title>
+<script type="text/javascript" th:inline="javascript">
+$(function() {
+	initSubTable();
+});
+var baseUrl= [[@{/workflow/define/}]];
+var tableId="tb_list";
+function addEntry(){
+	var index = layer.open({
+		type : 2,
+		title : '添加',
+		shadeClose : true,
+		end:function(){
+			$('#tb_list').bootstrapTable('refresh');
+		},
+		shade : 0.8,
+		area : [ '650px', '80%' ],
+		content :baseUrl+"add"
+	});
+}
+function initSubTable() {
+	$("#tb_list").bootstrapTable(new MyTable(baseUrl,[
+		{
+			field: 'name',
+			title: '名称'
+		},
+		{
+			field: 'key',
+			title: '标识'
+		}
+	],{
+		field : 'operate',
+		title : '操作',
+		align : 'center',
+		events : {
+			'click .BtnOfStartThe' : function(e, value, row, index) {
+				layer.confirm('确定启动定义?', {
+					btn : [ '启动', '取消' ]
+				}, function() {
+					$.get(baseUrl + "start-the/" + row.id, function(result) {
+						if (result.success) {
+							$('#' + tableId).bootstrapTable('refresh');
+							layer.msg('启动成功', {
+								icon : 1,
+								time : 1000
+							});
+						}else{
+							layer.msg(result.message, {
+								icon : 1,
+								time : 1000
+							});
+						}
+					}, "json");
+				}, function() {
+					layer.closeAll('dialog');
+				});
+			},
+			
+		},
+		formatter : function(value, row, index) {
+			return ['<button type="button" class="BtnOfStartThe pointer btn btn-success btn-xs"><i class="glyphicon glyphicon-send"></i>&nbsp;启动</button>',]
+					.join('');
+		}
+	}).params());
+}	   				
+		</script>
+</head>
+<body>
+	<div id="toolbar">
+		<div class="pull-right">
+			<button class="btn btn-sm btn-warning" onclick="addEntry()">
+				<i class=" glyphicon glyphicon-plus"></i> 添加模型
+			</button>
+		</div>
+	</div>
+	<div class="box box-primary">
+		<div class="box-body">
+			<table id="tb_list"></table>
+		</div>
+	</div>
+</body>
+
+</html>

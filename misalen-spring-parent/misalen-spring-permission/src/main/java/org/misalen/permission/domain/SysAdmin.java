@@ -11,6 +11,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.misalen.common.annotations.ModelComment;
 import org.misalen.db.jpa.base.domain.BaseDomain;
 
@@ -22,6 +24,8 @@ import org.misalen.db.jpa.base.domain.BaseDomain;
  */
 @Entity
 @Table
+@DynamicUpdate
+@DynamicInsert
 public class SysAdmin extends BaseDomain {
 
 	@ModelComment("用户名")

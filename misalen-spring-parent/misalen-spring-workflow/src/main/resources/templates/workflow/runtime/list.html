@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head
+	th:replace="common/head :: common_header(~{::title},~{::script},~{::link})">
+<meta charset="utf-8" />
+<title>权限列表</title>
+<script type="text/javascript" th:inline="javascript">
+$(function() {
+	initSubTable();
+});
+var baseUrl= [[@{/workflow/runtime/}]];
+var tableId="tb_list";
+function addEntry(){
+	var index = layer.open({
+		type : 2,
+		title : '添加',
+		shadeClose : true,
+		end:function(){
+			$('#tb_list').bootstrapTable('refresh');
+		},
+		shade : 0.8,
+		area : [ '650px', '80%' ],
+		content :baseUrl+"add"
+	});
+}
+function initSubTable() {
+	$("#tb_list").bootstrapTable(new MyTable(baseUrl,[
+		{
+			field: 'id',
+			title: 'ID'
+		},
+		{
+			field : 'createTime',
+			title : '添加时间',
+			formatter : function(value, row, index) {
+				return format(new Date(value), 'yyyy-MM-dd hh:mm:ss');
+			}
+		}
+	],{
+		field : 'operate',
+		title : '操作',
+		align : 'center',
+		events : {
+			'click .BtnOfDesign' : function(e, value, row, index) {
+				window.open([[@{/static/modeler.html?modelId=}]]+row.id);
+			},
+			'click .BtnOfDel' : function(e, value, row, index) {
+				layer.confirm('确定删除?', {
+					btn : [ '删除', '取消' ]
+				}, function() {
+					$.get(baseUrl + "del/" + row.id, function(result) {
+						if (result.success) {
+							$('#' + tableId).bootstrapTable('refresh');
+							layer.msg('删除成功', {
+								icon : 1,
+								time : 1000
+							});
+						}else{
+							layer.msg('删除失败', {
+								icon : 1,
+								time : 1000
+							});
+						}
+					}, "json");
+				}, function() {
+					layer.closeAll('dialog');
+				});
+			},
+			'click .BtnOfDeployment' : function(e, value, row, index) {
+				layer.confirm('确定发布流程?', {
+					btn : [ '发布', '取消' ]
+				}, function() {
+					$.get(baseUrl + "deployment/" + row.id, function(result) {
+						if (result.success) {
+							$('#' + tableId).bootstrapTable('refresh');
+							layer.msg('发布成功', {
+								icon : 1,
+								time : 1000
+							});
+						}else{
+							layer.msg(result.message, {
+								icon : 1,
+								time : 1000
+							});
+						}
+					}, "json");
+				}, function() {
+					layer.closeAll('dialog');
+				});
+			},
+			
+		},
+		formatter : function(value, row, index) {
+			return ['<button type="button" class="BtnOfDeployment pointer btn btn-success btn-xs"><i class="glyphicon glyphicon-send"></i>&nbsp;发布</button>',
+				'<button type="button" class="BtnOfDesign pointer btn btn-warning btn-xs"><i class="glyphicon glyphicon-log-in"></i>&nbsp;设计</button>',
+				'<button type="button" class="BtnOfDel pointer btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i>&nbsp;删除</button>', ]
+					.join('');
+		}
+	}).params());
+}	   				
+		</script>
+</head>
+<body>
+	<div id="toolbar">
+		<div class="pull-right">
+			<button class="btn btn-sm btn-warning" onclick="addEntry()">
+				<i class=" glyphicon glyphicon-plus"></i> 添加模型
+			</button>
+		</div>
+	</div>
+	<div class="box box-primary">
+		<div class="box-body">
+			<table id="tb_list"></table>
+		</div>
+	</div>
+</body>
+
+</html>
