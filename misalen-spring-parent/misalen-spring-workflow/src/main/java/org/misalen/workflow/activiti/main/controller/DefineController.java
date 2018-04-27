@@ -38,6 +38,12 @@ public class DefineController extends BaseController {
 		PageFrom<ProcessDefinition> models = myDefineService.findByPage(pageFrom);
 		return renderSuccess(models);
 	}
+	
+	@GetMapping("/del/{primaryKey}")
+	public @ResponseBody RestResult<?> del(@PathVariable String primaryKey) {
+		myDefineService.delete(primaryKey);
+		return renderSuccess();
+	}
 
 	@GetMapping("/start-the/{processDefinitionId}")
 	public @ResponseBody RestResult<?> startThe(@PathVariable String processDefinitionId) {

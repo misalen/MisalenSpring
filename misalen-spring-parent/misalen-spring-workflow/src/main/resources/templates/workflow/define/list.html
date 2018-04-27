@@ -60,10 +60,33 @@ function initSubTable() {
 					layer.closeAll('dialog');
 				});
 			},
+			'click .BtnOfDel' : function(e, value, row, index) {
+				layer.confirm('确定删除?', {
+					btn : [ '删除', '取消' ]
+				}, function() {
+					$.get(baseUrl + "del/" + row.id, function(result) {
+						if (result.success) {
+							$('#' + tableId).bootstrapTable('refresh');
+							layer.msg('删除成功', {
+								icon : 1,
+								time : 1000
+							});
+						}else{
+							layer.msg('删除失败', {
+								icon : 1,
+								time : 1000
+							});
+						}
+					}, "json");
+				}, function() {
+					layer.closeAll('dialog');
+				});
+			},
 			
 		},
 		formatter : function(value, row, index) {
-			return ['<button type="button" class="BtnOfStartThe pointer btn btn-success btn-xs"><i class="glyphicon glyphicon-send"></i>&nbsp;启动</button>',]
+			return ['<button type="button" class="BtnOfStartThe pointer btn btn-success btn-xs"><i class="glyphicon glyphicon-send"></i>&nbsp;启动</button>',
+				'<button type="button" class="BtnOfDel pointer btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i>&nbsp;删除</button>',]
 					.join('');
 		}
 	}).params());

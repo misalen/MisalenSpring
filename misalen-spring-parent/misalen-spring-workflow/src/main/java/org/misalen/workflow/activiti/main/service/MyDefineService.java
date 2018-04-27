@@ -44,8 +44,13 @@ public class MyDefineService {
 	 * @param id
 	 * @return
 	 */
-	public void startThe(String processDefinitionId) {
-		runtimeService.startProcessInstanceById(processDefinitionId);
+	public void startThe(String processInstanceId) {
+		runtimeService.startProcessInstanceById(processInstanceId);
+	}
+
+	public void delete(String processInstanceId) {
+		runtimeService.deleteProcessInstance(processInstanceId, null);
+		
 	}
 
 }
